@@ -4,7 +4,7 @@ app="$(echo $1)"
 #echo "enter app to update (use deb package name): "
 #read app
 rm -f $PKGDIR/$app*
-bash packages/$app.sh
+bash packages/${app}.sh
 echo "
 Current packages in the repository are:
  "
