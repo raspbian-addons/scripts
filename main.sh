@@ -1,7 +1,12 @@
 #!/bin/bash
-mkdir -p ~/raspbian-addons/debian/pool
 PKGDIR="/home/pi/raspbian-addons/debian/pool/"
-echo "enter app to update (use deb package name): "
-read app
-rm -f $PKGDIR/$APP*
-bash packages/$app
+app="$(echo $1)"
+#echo "enter app to update (use deb package name): "
+#read app
+rm -f $PKGDIR/$app*
+bash packages/$app.sh
+echo "
+Current packages in the repository are:
+ "
+ls $PKGDIR
+
