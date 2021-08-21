@@ -1,4 +1,5 @@
 #!/bin/bash
+git pull origin master
 PKGDIR="/home/pi/raspbian-addons/debian/pool/"
 app="$(echo $1)"
 #echo "enter app to update (use deb package name): "
