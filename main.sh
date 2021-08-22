@@ -10,4 +10,4 @@ echo "
 Current packages in the repository are:
  "
 ls $PKGDIR
-
+bash write.sh
