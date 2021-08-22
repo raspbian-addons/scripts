@@ -8,7 +8,8 @@ if [ ! -f "/etc/apt/sources.list.d/gitea.list" ]; then
 	sudo apt update
 fi
 echo "gitea.list exists. continuing..."
+LATEST=`curl -s https://api.github.com/repos/go-gitea/gitea/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")' | tr -d 'v'`
 sudo apt update
-apt download gitea:arm64 || LATEST=`curl -s https://api.github.com/repos/go-gitea/gitea/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")' | tr -d 'v'` && wget https://github.com/chunky-milk/gitea-debs/raw/master/debian/gitea_${LATEST}_arm64.deb
+apt download gitea:arm64 || #LATEST=`curl -s https://api.github.com/repos/go-gitea/gitea/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")' | tr -d 'v'` && wget https://github.com/chunky-milk/gitea-debs/raw/master/debian/gitea_${LATEST}_arm64.deb
 apt download gitea:armhf
 mv gitea* $PKGDIR
