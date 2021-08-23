@@ -14,4 +14,4 @@ fi
 echo "cherrytree.list exists. continuing..."
 sudo apt update
 apt download cherrytree:arm64
-mv cherrytree_* $PKGDIR
+mv cherrytree_*.deb $PKGDIR
