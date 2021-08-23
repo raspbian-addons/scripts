@@ -9,4 +9,4 @@ fi
 echo "home-ungoogled_chromium.list exists. continuing..."
 sudo apt update
 apt download ungoogled-chromium
-mv ungoogled-chromium* $PKGDIR
+mv ungoogled-chromium*.deb $PKGDIR
