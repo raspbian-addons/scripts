@@ -11,5 +11,5 @@ if [ ! -f "/etc/apt/sources.list.d/papirus-icon-theme.list" ]; then
 fi
 echo "papirus-icon-theme.list exists. continuing..."
 sudo apt update
-apt download cherrytree
+apt download papirus-icon-theme
 mv papirus-icon-theme_* $PKGDIR
