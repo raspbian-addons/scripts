@@ -12,4 +12,4 @@ fi
 echo "papirus-icon-theme.list exists. continuing..."
 sudo apt update
 apt download papirus-icon-theme
-mv papirus-icon-theme_* $PKGDIR
+mv papirus-icon-theme_*.deb $PKGDIR
