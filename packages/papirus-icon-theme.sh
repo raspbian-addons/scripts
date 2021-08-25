@@ -5,7 +5,7 @@ PKGDIR="/home/pi/raspbian-addons/debian/pool/"
 
 if [ ! -f "/etc/apt/sources.list.d/papirus-icon-theme.list" ]; then
 	echo "papirus-icon-theme.list does not exist. adding repo..."
-  echo "deb http://ppa.launchpad.net/papirus/papirus/ubuntu bionic main" | sudo tee /etc/apt/sources.list.d/papirus-icon-theme.list
+  	echo "deb http://ppa.launchpad.net/papirus/papirus/ubuntu bionic main" | sudo tee /etc/apt/sources.list.d/papirus-icon-theme.list
 	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 9461999446FAF0DF770BFC9AE58A9D36647CAE7F
 	sudo apt update
 fi
