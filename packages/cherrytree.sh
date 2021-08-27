@@ -13,5 +13,5 @@ if [ ! -f "/etc/apt/sources.list.d/cherrytree.list" ]; then
 fi
 echo "cherrytree.list exists. continuing..."
 sudo apt update
-sudo apt download cherrytree:arm64
+apt download cherrytree:arm64
 mv cherrytree_*.deb $PKGDIR

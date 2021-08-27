@@ -8,5 +8,5 @@ if [ ! -f "/etc/apt/sources.list.d/home-ungoogled_chromium.list" ]; then
 fi
 echo "home-ungoogled_chromium.list exists. continuing..."
 sudo apt update
-sudo apt download ungoogled-chromium
+apt download ungoogled-chromium
 mv ungoogled-chromium*.deb $PKGDIR
