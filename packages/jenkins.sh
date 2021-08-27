@@ -1,7 +1,7 @@
 #!/bin/bash
 PKGDIR="/home/pi/raspbian-addons/debian/pool/"
 LATEST=`curl -s https://api.github.com/repos/jenkinsci/jenkins/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
-curl -s https://api.github.com/repos/cli/cli/releases/latest \
+curl -s https://api.github.com/repos/jenkinsci/jenkins/releases/latest \
   | grep browser_download_url \
   | grep 'all.deb"' \
   | cut -d '"' -f 4 \
