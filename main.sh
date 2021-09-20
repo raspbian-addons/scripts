@@ -19,10 +19,5 @@ app="$(echo $1)"
 #read app
 rm -f $PKGDIR/$app*
 bash packages/${app}.sh
-bash write.sh
-echo "
-Current packages in the repository are:
- "
-ls $PKGDIR
-echo "
-Package write for $app complete."
+#bash write.sh
+echo "Make sure to run write.sh, or the repository will break!"
