@@ -3,8 +3,8 @@ PKGDIR="/home/pi/raspbian-addons/debian/pool/"
 
 if [ ! -f "/etc/apt/sources.list.d/gitea.list" ]; then
 	echo "gitea.list does not exist. adding repo..."
-	sudo wget https://gitea.armlinux.ml/gitea.list -O /etc/apt/sources.list.d/gitea.list
-	wget -qO- https://gitea.armlinux.ml/KEY.gpg | sudo apt-key add -
+	sudo wget https://ryanfortner.github.io/gitea-debs/gitea.list -O /etc/apt/sources.list.d/gitea.list
+	wget -qO- https://ryanfortner.github.io/gitea-debs/KEY.gpg | sudo apt-key add -
 	sudo apt update
 fi
 echo "gitea.list exists. continuing..."
