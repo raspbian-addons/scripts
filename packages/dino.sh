@@ -1,5 +1,5 @@
 #!/bin/bash
-PKGDIR="/home/pi/raspbian-addons/debian/pool/"
+PKGDIR="/root/raspbian-addons/debian/pool/"
 if [ ! -f "/etc/apt/sources.list.d/network:messaging:xmpp:dino.list" ]; then
 	echo 'deb http://download.opensuse.org/repositories/network:/messaging:/xmpp:/dino/Raspbian_10/ /' | sudo tee /etc/apt/sources.list.d/network:messaging:xmpp:dino.list
 	curl -fsSL https://download.opensuse.org/repositories/network:messaging:xmpp:dino/Raspbian_10/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/network_messaging_xmpp_dino.gpg > /dev/null
