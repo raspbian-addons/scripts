@@ -1,6 +1,5 @@
 #!/bin/bash
-PKGDIR="/home/pi/raspbian-addons/debian/pool/"
-LATEST=`curl -s https://api.github.com/repos/persepolisdm/persepolis/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
+PKGDIR="/root/raspbian-addons/debian/pool/"
 curl -s https://api.github.com/repos/persepolisdm/persepolis/releases/latest \
   | grep browser_download_url \
   | grep 'all.deb"' \
