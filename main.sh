@@ -1,8 +1,8 @@
 #!/bin/bash
-GPGPATH="/home/root/gpgpass"
-EMAILPATH="/home/root/email"
+GPGPATH="/root/gpgpass"
+EMAILPATH="/root/email"
 git pull origin master
-PKGDIR="/home/root/raspbian-addons/debian/pool/"
+PKGDIR="/root/raspbian-addons/debian/pool/"
 
 if [ ! -f ${GPGPASS} ]; then
   echo "error: gpgpass file not detected, exiting."
