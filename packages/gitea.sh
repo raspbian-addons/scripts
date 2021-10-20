@@ -7,7 +7,7 @@ new=$(echo $api | grep -Po '"tag_name": "v\K.*?(?=")')
 
 echo "Gitea version to package: $new"
 
-[ ! -d /tmp/dpkg-deb ] && git clone https://github.com/chunky-milk/dpkg-deb.git /tmp/dpkg-deb --quiet
+[ ! -d /tmp/dpkg-deb ] && git clone https://github.com/ryanfortner/dpkg-deb.git /tmp/dpkg-deb --quiet
 
 rm -rf /tmp/dpkg-deb
 
