@@ -1,5 +1,5 @@
 #!/bin/bash
-PKGDIR="/home/pi/raspbian-addons/debian/pool/"
+PKGDIR="/root/raspbian-addons/debian/pool/"
 LATEST=`curl -s https://api.github.com/repos/felixrieseberg/windows95/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
 curl -s https://api.github.com/repos/felixrieseberg/windows95/releases/latest \
   | grep browser_download_url \
