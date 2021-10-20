@@ -1,7 +1,7 @@
 #!/bin/bash
-cd /home/pi/raspbian-addons/debian/
-EMAIL="$(cat /home/pi/email)"
-GPGPASS="$(cat /home/pi/gpgpass)"
+cd /root/raspbian-addons/debian/
+EMAIL="$(cat /root/email)"
+GPGPASS="$(cat /root/gpgpass)"
 rm InRelease Release Release.gpg Packages Packages.gz
 dpkg-scanpackages --multiversion . > Packages
 gzip -k -f Packages
