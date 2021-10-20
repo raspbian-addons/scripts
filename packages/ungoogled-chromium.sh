@@ -1,5 +1,5 @@
 #!/bin/bash
-PKGDIR="/home/pi/raspbian-addons/debian/pool/"
+PKGDIR="/root/raspbian-addons/debian/pool/"
 echo "https://download.opensuse.org/repositories/home:/ungoogled_chromium/Debian_Buster/"
 if [ ! -f "/etc/apt/sources.list.d/home-ungoogled_chromium.list" ]; then
   echo 'deb http://download.opensuse.org/repositories/home:/ungoogled_chromium/Debian_Buster/ /' | sudo tee /etc/apt/sources.list.d/home-ungoogled_chromium.list > /dev/null
