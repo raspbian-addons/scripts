@@ -1,5 +1,5 @@
 #!/bin/bash
-PKGDIR="/home/pi/raspbian-addons/debian/pool/"
+PKGDIR="/root/raspbian-addons/debian/pool/"
 
 if [ ! -f "/etc/apt/sources.list.d/box64.list" ]; then
 	echo "box64.list does not exist. adding repo..."
