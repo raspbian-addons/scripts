@@ -1,5 +1,5 @@
 #!/bin/bash
-PKGDIR="/home/pi/raspbian-addons/debian/pool/"
+PKGDIR="/root/raspbian-addons/debian/pool/"
 
 if [ ! -f "/etc/apt/sources.list.d/gitea.list" ]; then
 	echo "gitea.list does not exist. adding repo..."
