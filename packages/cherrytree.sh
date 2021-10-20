@@ -1,5 +1,5 @@
 #!/bin/bash
-PKGDIR="/home/pi/raspbian-addons/debian/pool/"
+PKGDIR="/root/raspbian-addons/debian/pool/"
 # cherrytree
 #the -3 at the end of the version number causes this to not work
 #LATEST=`curl -s https://api.github.com/repos/giuspen/cherrytree/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")' | tr -d 'v'`
