@@ -10,6 +10,7 @@ echo "Gitea version to package: $new"
 [ ! -d /tmp/dpkg-deb ] && git clone https://github.com/ryanfortner/dpkg-deb.git /tmp/dpkg-deb
 
 /tmp/dpkg-deb/gitea/build-package
-mv /tmp/dpkg-deb/gitea/deb/*.deb $PKGDIR || sudo mv /tmp/dpkg-deb/gitea/deb/*.deb $PKGDIR
+mv /tmp/dpkg-deb/gitea/deb/*arm64.deb $PKGDIR || sudo mv /tmp/dpkg-deb/gitea/deb/*arm64.deb $PKGDIR
+mv /tmp/dpkg-deb/gitea/deb/*armhf.deb $PKGDIR || sudo mv /tmp/dpkg-deb/gitea/deb/*armhf.deb $PKGDIR
 
 rm -rf /tmp/dpkg-deb
