@@ -1,4 +1,5 @@
 #!/bin/bash
+PKGDIR="/root/raspbian-addons/debian/pool/"
 if [ ! -f /etc/apt/sources.list.d/softethervpn.list ]; then
 	echo "softethervpn.list does not exist. creating now..."
 	sudo bash -c "echo deb http://ppa.launchpad.net/paskal-07/softethervpn/ubuntu impish main > /etc/apt/sources.list.d/softethervpn.list"
