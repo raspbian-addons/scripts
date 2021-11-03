@@ -16,28 +16,28 @@ PLAIN='\033[0m'
 declare -A mirrors
 mirrors=(
   [Fosshost]="http://apt.raspbian-addons.org/"
-  [OSDN]="http://storage.osdn.net/storage/g/r/ra/"
-  [OSDN_DL]="https://osdn.dl.osdn.net/storage/g/r/ra/"
-  [xTom]="https://mirrors.xtom.com/osdn/storage/g/r/ra/"
-  [GigeNET]="https://mirrors.gigenet.com/OSDN/storage/g/r/ra/"
-  [Constant]="https://osdn.mirror.constant.com/storage/g/r/ra/"
-  [Purdue]="https://plug-mirror.rcac.purdue.edu/osdn/storage/g/r/ra/"
-  [Princeton]="https://mirror.math.princeton.edu/pub/osdn/storage/g/r/ra/"
-  [Tsinghua]="https://mirrors.tuna.tsinghua.edu.cn/osdn/storage/g/r/ra/"
-  [BFSU]="https://mirrors.bfsu.edu.cn/osdn/storage/g/r/ra/"
-  [ISCAS]="https://mirror.iscas.ac.cn/osdn/storage/g/r/ra/"
-  [SJTU]="https://mirror.sjtu.edu.cn/"
-  [NJU]="https://mirrors.nju.edu.cn/osdn/storage/g/r/ra/"
-  [xTom_HK]="https://mirror.xtom.com.hk/osdn/storage/g/r/ra/"
-  [NCHC]="https://free.nchc.org.tw/osdn/storage/g/r/ra/"
-  [IIJ]="https://ftp.iij.ad.jp/pub/osdn.jp/storage/g/r/ra/"
-  [JAIST]="https://ftp.jaist.ac.jp/pub/storage/g/r/ra/"
-  [YMU]="https://ymu.dl.osdn.jp/storage/g/r/ra/"
-  [UME]="https://ftp.acc.umu.se/mirror/osdn.net/storage/g/r/ra/"
-  [RWTH_Aachen]="http://ftp.halifax.rwth-aachen.de/osdn/storage/g/r/ra/"
-  [Dotsrc]="http://mirrors.dotsrc.org/osdn/storage/g/r/ra/"
-  [Onet]="http://ftp.onet.pl/pub/mirrors/sourceforge.jp/storage/g/r/ra/"
-  [Liquid_Telecom]="http://mirror.liquidtelecom.com/osdn/storage/g/r/ra/"
+  [OSDN]="http://storage.osdn.net/storage/g/r/ra/raspbian-addons/"
+  [OSDN_DL]="https://osdn.dl.osdn.net/storage/g/r/ra/raspbian-addons/"
+  [xTom]="https://mirrors.xtom.com/osdn/storage/g/r/ra/raspbian-addons/"
+  [GigeNET]="https://mirrors.gigenet.com/OSDN/storage/g/r/ra/raspbian-addons/"
+  [Constant]="https://osdn.mirror.constant.com/storage/g/r/ra/raspbian-addons/"
+  [Purdue]="https://plug-mirror.rcac.purdue.edu/osdn/storage/g/r/ra/raspbian-addons/"
+  [Princeton]="https://mirror.math.princeton.edu/pub/osdn/storage/g/r/ra/raspbian-addons/"
+  [Tsinghua]="https://mirrors.tuna.tsinghua.edu.cn/osdn/storage/g/r/ra/raspbian-addons/"
+  [BFSU]="https://mirrors.bfsu.edu.cn/osdn/storage/g/r/ra/raspbian-addons/"
+  [ISCAS]="https://mirror.iscas.ac.cn/osdn/storage/g/r/ra/raspbian-addons/"
+  [SJTU]="https://mirror.sjtu.edu.cn/raspbian-addons/"
+  [NJU]="https://mirrors.nju.edu.cn/osdn/storage/g/r/ra/raspbian-addons/"
+  [xTom_HK]="https://mirror.xtom.com.hk/osdn/storage/g/r/ra/raspbian-addons/"
+  [NCHC]="https://free.nchc.org.tw/osdn/storage/g/r/ra/raspbian-addons/"
+  [IIJ]="https://ftp.iij.ad.jp/pub/osdn.jp/storage/g/r/ra/raspbian-addons/"
+  [JAIST]="https://ftp.jaist.ac.jp/pub/storage/g/r/ra/raspbian-addons/"
+  [YMU]="https://ymu.dl.osdn.jp/storage/g/r/ra/raspbian-addons/"
+  [UME]="https://ftp.acc.umu.se/mirror/osdn.net/storage/g/r/ra/raspbian-addons/"
+  [RWTH_Aachen]="http://ftp.halifax.rwth-aachen.de/osdn/storage/g/r/ra/raspbian-addons/"
+  [Dotsrc]="http://mirrors.dotsrc.org/osdn/storage/g/r/ra/raspbian-addons/"
+  [Onet]="http://ftp.onet.pl/pub/mirrors/sourceforge.jp/storage/g/r/ra/raspbian-addons/"
+  [Liquid_Telecom]="http://mirror.liquidtelecom.com/osdn/storage/g/r/ra/raspbian-addons/"
 )
 
 ######################################################################################################
@@ -121,7 +121,7 @@ case "$os" in
 #    file="/debian/ls-lR.gz"
 #    ;;
   *)
-    file="raspbian-addons/20mb"
+    file="20mb"
     ;;
 esac
 
