@@ -1,7 +1,7 @@
 #!/bin/bash
 GPGPATH="/root/gpgpass"
 EMAILPATH="/root/email"
-git pull origin master
+cd ~/scripts && git pull origin master && cd ~/scripts/autoupdate
 PKGDIR="/root/raspbian-addons/debian/pool/"
 
 if [ ! -f ${GPGPASS} ]; then
