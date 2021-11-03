@@ -17,7 +17,7 @@ fi
 app="$(echo $1)"
 #echo "enter app to update (use deb package name): "
 #read app
-rm -f $PKGDIR/$app*
+rm -f $PKGDIR/${app}_*
 bash packages/${app}.sh
 #bash write.sh
 echo "Make sure to run write.sh, or the repository will break!"
