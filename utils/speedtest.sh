@@ -15,6 +15,7 @@ PLAIN='\033[0m'
 
 declare -A mirrors
 mirrors=(
+  [Fosshost]="http://apt.raspbian-addons.org/"
   [OSDN]="http://storage.osdn.net/storage/g/r/ra/"
   [OSDN_DL]="https://osdn.dl.osdn.net/storage/g/r/ra/"
   [xTom]="https://mirrors.xtom.com/osdn/storage/g/r/ra/"
