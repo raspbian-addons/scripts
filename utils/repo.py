@@ -39,7 +39,7 @@ def logo():
     print('18. YMU (Yamagata, Japan)           19. UME (Ume\u00e5, Sweden)')
     print('20. RWTH Aachen (NRW, Germany)      21. Dotsrc (Aalborg, Denmark)')
     print('22. Onet (Krakow, Poland)           23. Liquid Telecom (Nairobi, Kenya)\n')
-    print('\033[1mOther options:\033[0m"\n')
+    print('\033[1mOther options:\033[0m\n')
     print('24. Remove                          25. Exit')
     print('')
     return copyright_title, copyright_url
