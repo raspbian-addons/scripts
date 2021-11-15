@@ -3,7 +3,7 @@ PKGDIR="/root/raspbian-addons/debian/pool/"
 
 if [ ! -f "/etc/apt/sources.list.d/onedriver-arm64.list" ]; then
 	echo "onedriver-arm64.list does not exist. adding repo..."
-        echo "deb http://ppa.launchpad.net/papirus/papirus/ubuntu bionic main" | sudo tee /etc/apt/sources.list.d/onedriver-arm64.list
+        echo "deb http://ppa.launchpad.net/jstaf/onedriver/ubuntu focal main" | sudo tee /etc/apt/sources.list.d/onedriver-arm64.list
       	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys D9F7BA8AAB06C5F3B889EBF0E3A37397117B103D
 	sudo apt update
 fi
