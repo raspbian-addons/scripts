@@ -27,20 +27,20 @@ def logo():
     print(base64.b64decode(copyright_title).decode('utf-8'))
     print(base64.b64decode(copyright_url).decode('utf-8'))
     print('\033[1mChoose a mirror:\033[0m\n')
-    print(' 1. Main Server (Fosshost, Boston, MA, USA)')
-    print(' 2. OSDN Storage (Main Server, USA)  3. OSDN (Main Server 2, USA)')
-    print(' 4. xTom (California, USA)           5. GigeNET (California, USA)')
-    print(' 6. Constant ( New Jersey, USA)      7. Purdue (Indiana, USA)')
-    print(' 8. Princeton (New Jersey, USA)      9. Tsinghua (Beijing, China)')
-    print('10. BFSU (Beijing, China)           11. ISCAS (Beijing, China)')
-    print('12. SJTU (Shanghai, China)          13. NJU (Nanjing, China)')
-    print('14. xTom (Hong Kong, China)         15. NCHC (Taiwan, China) ')
-    print('16. IIJ (Osaka, Japan)              17. JAIST (Nomi, Japan)')
-    print('18. YMU (Yamagata, Japan)           19. UME (Ume\u00e5, Sweden)')
-    print('20. RWTH Aachen (NRW, Germany)      21. Dotsrc (Aalborg, Denmark)')
-    print('22. Onet (Krakow, Poland)           23. Liquid Telecom (Nairobi, Kenya)\n')
+    print(' 1. Main Server (Boston, USA)        2. SourceForge (Western US)')
+    print(' 3. OSDN Storage (Main Server, USA)  4. OSDN (Main Server 2, USA)')
+    print(' 5. xTom (California, USA)           6. GigeNET (California, USA)')
+    print(' 7. Constant ( New Jersey, USA)      8. Purdue (Indiana, USA)')
+    print(' 9. Princeton (New Jersey, USA)      10. Tsinghua (Beijing, China)')
+    print('11. BFSU (Beijing, China)           12. ISCAS (Beijing, China)')
+    print('13. SJTU (Shanghai, China)          14. NJU (Nanjing, China)')
+    print('15. xTom (Hong Kong, China)         16. NCHC (Taiwan, China) ')
+    print('17. IIJ (Osaka, Japan)              18. JAIST (Nomi, Japan)')
+    print('19. YMU (Yamagata, Japan)           20. UME (Ume\u00e5, Sweden)')
+    print('21. RWTH Aachen (NRW, Germany)      22. Dotsrc (Aalborg, Denmark)')
+    print('23. Onet (Krakow, Poland)           24. Liquid Telecom (Nairobi, Kenya)\n')
     print('\033[1mOther options:\033[0m\n')
-    print('24. Remove                          25. Exit')
+    print('25. Remove                          26. Exit')
     print('')
     return copyright_title, copyright_url
 
@@ -78,122 +78,127 @@ if __name__ == "__main__":
         exec('echo "deb http://apt.raspbian-addons.org/debian/ /" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
         update()
 
-    elif int(option) == 2:
+    if int(option) == 2;
+        add_gpg_key()
+        exec('echo "deb https://master.dl.sourceforge.net/project/raspbian-addons/debian/ /" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
+        update()
+
+    elif int(option) == 3:
         add_gpg_key()
         exec('echo "deb http://storage.osdn.net/storage/g/r/ra/raspbian-addons/debian/ /" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
         update()
         
-    elif int(option) == 3:
+    elif int(option) == 4:
         add_gpg_key()
         exec('echo "deb https://osdn.dl.osdn.net/storage/g/r/ra/raspbian-addons/debian/ /" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
         update()
         
-    elif int(option) == 4:
+    elif int(option) == 5:
         add_gpg_key()
         exec('echo "deb https://mirrors.xtom.com/osdn/storage/g/r/ra/raspbian-addons/debian/ /" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
         update()
 
-    elif int(option) == 5:
+    elif int(option) == 6:
         add_gpg_key()
         exec('echo "deb https://mirrors.gigenet.com/OSDN/storage/g/r/ra/raspbian-addons/debian/ /" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
         update()
 
-    elif int(option) == 6:
+    elif int(option) == 7:
         add_gpg_key()
         exec('echo "deb https://osdn.mirror.constant.com/storage/g/r/ra/raspbian-addons/debian/ /" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
         update()
 
-    elif int(option) == 7:
+    elif int(option) == 8:
         add_gpg_key()
         exec('echo "deb https://plug-mirror.rcac.purdue.edu/osdn/storage/g/r/ra/raspbian-addons/debian/ /" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
         update()
 
-    elif int(option) == 8:
+    elif int(option) == 9:
         add_gpg_key()
         exec('echo "deb https://mirror.math.princeton.edu/pub/osdn/storage/g/r/ra/raspbian-addons/debian/ /" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
         update()
 
-    elif int(option) == 9:
+    elif int(option) == 10:
         add_gpg_key()
         os.system('echo "deb https://mirrors.tuna.tsinghua.edu.cn/osdn/storage/g/r/ra/raspbian-addons/debian/ /" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
         update()
 
-    elif int(option) == 10:
+    elif int(option) == 11:
         add_gpg_key()
         exec('echo "deb https://mirrors.bfsu.edu.cn/osdn/storage/g/r/ra/raspbian-addons/debian/ /" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
         update()
 
-    elif int(option) == 11:
+    elif int(option) == 12:
         add_gpg_key()
         exec('echo "deb https://mirror.iscas.ac.cn/osdn/storage/g/r/ra/raspbian-addons/debian/ /" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
         update()
         
-    elif int(option) == 12:
+    elif int(option) == 13:
         add_gpg_key()
         exec('echo "deb https://mirror.sjtu.edu.cn/raspbian-addons/debian/ /" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
         update()
 
-    elif int(option) == 13:
+    elif int(option) == 14:
         add_gpg_key()
         exec('echo "deb https://mirrors.nju.edu.cn/osdn/storage/g/r/ra/raspbian-addons/debian/ /" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
         update()
 
-    elif int(option) == 14:
+    elif int(option) == 15:
         add_gpg_key()
         exec('echo "deb https://mirror.xtom.com.hk/osdn/storage/g/r/ra/raspbian-addons/debian/ /" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
         update()
 
-    elif int(option) == 15:
+    elif int(option) == 16:
         add_gpg_key()
         exec('echo "deb https://free.nchc.org.tw/osdn/storage/g/r/ra/raspbian-addons/debian/ /" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
         update()
 
-    elif int(option) == 16:
+    elif int(option) == 17:
         add_gpg_key()
         exec('echo "deb https://ftp.iij.ad.jp/pub/osdn.jp/storage/g/r/ra/raspbian-addons/debian/ /" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
         update()
 
-    elif int(option) == 17:
+    elif int(option) == 18:
         add_gpg_key()
         exec('echo "deb https://ftp.jaist.ac.jp/pub/sourceforge.jp/storage/g/r/ra/raspbian-addons/debian/ /" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
         update()
 
-    elif int(option) == 18:
+    elif int(option) == 19:
         add_gpg_key()
         exec('echo "deb https://ymu.dl.osdn.jp/storage/g/r/ra/raspbian-addons/debian/ /" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
         update()
 
-    elif int(option) == 19:
+    elif int(option) == 20:
         add_gpg_key()
         exec('echo "deb https://ftp.acc.umu.se/mirror/osdn.net/storage/g/r/ra/raspbian-addons/debian/ /" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
         update()
 
-    elif int(option) == 20:
+    elif int(option) == 21:
         add_gpg_key()
         exec('echo "deb http://ftp.halifax.rwth-aachen.de/osdn/storage/g/r/ra/raspbian-addons/debian/ /" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
         update()
 
-    elif int(option) == 21:
+    elif int(option) == 22:
         add_gpg_key()
         exec('echo "deb http://mirrors.dotsrc.org/osdn/storage/g/r/ra/raspbian-addons/debian/ /" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
         update()
 
-    elif int(option) == 22:
+    elif int(option) == 23:
         add_gpg_key()
         exec('echo "deb http://ftp.onet.pl/pub/mirrors/sourceforge.jp/storage/g/r/ra/raspbian-addons/debian/ /" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
         update()
 
-    elif int(option) == 23:
+    elif int(option) == 24:
         add_gpg_key()
         exec('echo "deb http://mirror.liquidtelecom.com/osdn/storage/g/r/ra/raspbian-addons/debian/ /" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
         update()
 
-    elif int(option) == 24:
+    elif int(option) == 25:
         print('Removing package list... || error "Failed to remove package list!"')
         exec('sudo rm /etc/apt/sources.list.d/rpirepo.list')
         print('Done!')
 
-    elif int(option) == 25:
+    elif int(option) == 26:
         os._exit(0)
     else:
         print('Illegal input option. Please re-enter.')
