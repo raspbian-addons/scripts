@@ -38,6 +38,7 @@ mirrors=(
   [Dotsrc]="http://mirrors.dotsrc.org/osdn/storage/g/r/ra/raspbian-addons/"
   [Onet]="http://ftp.onet.pl/pub/mirrors/sourceforge.jp/storage/g/r/ra/raspbian-addons/"
   [Liquid_Telecom]="http://mirror.liquidtelecom.com/osdn/storage/g/r/ra/raspbian-addons/"
+  [SourceForge]="https://master.dl.sourceforge.net/project/raspbian-addons/"
 )
 
 ######################################################################################################
