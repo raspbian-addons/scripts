@@ -31,7 +31,7 @@ def logo():
     print(' 3. OSDN Storage (Main Server, USA)  4. OSDN (Main Server 2, USA)')
     print(' 5. xTom (California, USA)           6. GigeNET (California, USA)')
     print(' 7. Constant ( New Jersey, USA)      8. Purdue (Indiana, USA)')
-    print(' 9. Princeton (New Jersey, USA)      10. Tsinghua (Beijing, China)')
+    print(' 9. Princeton (New Jersey, USA)     10. Tsinghua (Beijing, China)')
     print('11. BFSU (Beijing, China)           12. ISCAS (Beijing, China)')
     print('13. SJTU (Shanghai, China)          14. NJU (Nanjing, China)')
     print('15. xTom (Hong Kong, China)         16. NCHC (Taiwan, China) ')
@@ -194,9 +194,12 @@ if __name__ == "__main__":
         update()
 
     elif int(option) == 25:
-        print('Removing package list... || error "Failed to remove package list!"')
-        exec('sudo rm /etc/apt/sources.list.d/rpirepo.list')
-        print('Done!')
+        print('Removing package list...')
+        exec('sudo rm /etc/apt/sources.list.d/rpirepo.list || error "Failed to remove package list!"')
+        print('Removing GPG key...')
+        exec('sudo apt-key remove "232E 6F29 77AB D48E 5A9F  AD03 9ACB 4E70 D84B FD24" || error "Failed to remove GPG key!"')
+        print('Updating APT lists...')
+        exec('sudo apt update || error "Failed to update APT lists!"')
 
     elif int(option) == 26:
         os._exit(0)
