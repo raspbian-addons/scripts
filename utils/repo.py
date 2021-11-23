@@ -78,7 +78,7 @@ if __name__ == "__main__":
         exec('echo "deb http://apt.raspbian-addons.org/debian/ /" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
         update()
 
-    if int(option) == 2:
+    elif int(option) == 2:
         add_gpg_key()
         exec('echo "deb https://master.dl.sourceforge.net/project/raspbian-addons/debian/ /" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
         update()
