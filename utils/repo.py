@@ -195,11 +195,11 @@ if __name__ == "__main__":
 
     elif int(option) == 25:
         print('Removing package list...')
-        exec('sudo rm /etc/apt/sources.list.d/rpirepo.list || error "Failed to remove package list!"')
+        exec('sudo rm /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to remove rpirepo.list!")
         print('Removing GPG key...')
-        exec('sudo apt-key remove "232E 6F29 77AB D48E 5A9F  AD03 9ACB 4E70 D84B FD24" || error "Failed to remove GPG key!"')
+        exec('sudo apt-key remove "232E 6F29 77AB D48E 5A9F  AD03 9ACB 4E70 D84B FD24" || exit 1', "Failed to remove gpg key!")
         print('Updating APT lists...')
-        exec('sudo apt update || error "Failed to update APT lists!"')
+        exec('sudo apt update || exit 1', "Failed to add update apt lists!")
 
     elif int(option) == 26:
         os._exit(0)
