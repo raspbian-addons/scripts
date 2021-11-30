@@ -37,7 +37,7 @@ def logo():
     print('15. USTC (Anhui, China)             16. xTom (Hong Kong, China)')
     print('17. NCHC (Taiwan, China)            18. IIJ (Osaka, Japan)')
     print('19. JAIST (Nomi, Japan)             20. YMU (Yamagata, Japan)')
-    print('21. UME (Ume\u00e5, Sweden)         22. RWTH Aachen (NRW, Germany)')
+    print('21. UME (Ume\u00e5, Sweden)              22. RWTH Aachen (NRW, Germany)')
     print('23. Dotsrc (Aalborg, Denmark)       24. Onet (Krakow, Poland)')
     print('25. Liquid Telecom (Nairobi, Kenya)\n')
     print('\033[1mOther options:\033[0m\n')
