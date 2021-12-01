@@ -197,6 +197,24 @@ rm $PKGDIR/lazygit-* || rm $PKGDIR/lazygit_*
 
 mv lazygit* $PKGDIR
 
+echo "updating webcord"
+LATEST=`curl -s https://api.github.com/repos/SpacingBat3/WebCord/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
+curl -s https://api.github.com/repos/SpacingBat3/WebCord/releases/latest \
+  | grep browser_download_url \
+  | grep 'armhf.deb"' \
+  | cut -d '"' -f 4 \
+  | xargs -n 1 curl -L -o webcord-$LATEST-armhf.deb || error "Failed to download webcord:armhf"
+
+curl -s https://api.github.com/repos/SpacingBat3/WebCord/releases/latest \
+  | grep browser_download_url \
+  | grep 'arm64.deb"' \
+  | cut -d '"' -f 4 \
+  | xargs -n 1 curl -L -o webcord-$LATEST-arm64.deb || error "Failed to download webcord:arm64"
+
+rm $PKGDIR/webcord-* || rm $PKGDIR/webcord_*
+
+mv webcord* $PKGDIR
+
 cd $PKGDIRA
 echo "Writing packages..."
 EMAIL="$(cat /root/email)"
