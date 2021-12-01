@@ -182,8 +182,23 @@ rm $PKGDIR/papirus-icon-theme-* || rm $PKGDIR/papirus-icon-theme_*
 
 mv papirus-icon-theme* $PKGDIR
 
+echo "Updating lazygit"
+if [ ! -f "/etc/apt/sources.list.d/lazygit.list" ]; then
+	echo "lazygit.list does not exist. adding repo..."
+  echo "deb http://ppa.launchpad.net/lazygit-team/release/ubuntu hirsute main" | sudo tee /etc/apt/sources.list.d/lazygit.list
+	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68CCF87596E97291
+fi
+echo "lazygit.list exists. continuing..."
+sudo apt update
+apt download lazygit:armhf
+apt download lazygit:arm64
+
+rm $PKGDIR/lazygit-* || rm $PKGDIR/lazygit_*
+
+mv lazygit* $PKGDIR
+
 cd $PKGDIRA
-echo "writing packages..."
+echo "Writing packages..."
 EMAIL="$(cat /root/email)"
 GPGPASS="$(cat /root/gpgpass)"
 rm InRelease Release Release.gpg Packages Packages.gz
