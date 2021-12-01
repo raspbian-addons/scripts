@@ -178,7 +178,7 @@ echo "papirus-icon-theme.list exists. continuing..."
 sudo apt update
 apt download papirus-icon-theme
 
-rm $PKGDIR/papirus-icon-theme-* || rm $PKGDIR/papirus-icon-theme_*
+rm $PKGDIR/papirus-icon-theme_* || rm $PKGDIR/papirus-icon-theme-*
 
 mv papirus-icon-theme* $PKGDIR
 
@@ -193,7 +193,7 @@ sudo apt update
 apt download lazygit:arm64
 apt download lazygit:armhf
 
-rm $PKGDIR/lazygit-* || rm $PKGDIR/lazygit_*
+rm $PKGDIR/lazygit_* || rm $PKGDIR/lazygit-*
 
 mv lazygit* $PKGDIR
 
