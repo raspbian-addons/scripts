@@ -155,13 +155,13 @@ curl -s https://api.github.com/repos/electron/fiddle/releases/latest \
   | grep browser_download_url \
   | grep 'armhf.deb"' \
   | cut -d '"' -f 4 \
-  | xargs -n 1 curl -L -o electron-fiddle-$LATEST-armhf.deb
+  | xargs -n 1 curl -L -o electron-fiddle-$LATEST-armhf.deb || error "Failed to download electron-fiddle:armhf"
 
 curl -s https://api.github.com/repos/electron/fiddle/releases/latest \
   | grep browser_download_url \
   | grep 'arm64.deb"' \
   | cut -d '"' -f 4 \
-  | xargs -n 1 curl -L -o electron-fiddle-$LATEST-arm64.deb
+  | xargs -n 1 curl -L -o electron-fiddle-$LATEST-arm64.deb || error "Failed to download electron-fiddle:arm64"
 
 rm $PKGDIR/electron-fiddle-* || rm $PKGDIR/electron-fiddle_*
 
@@ -171,7 +171,7 @@ echo "Updating papirus-icon-theme"
 if [ ! -f "/etc/apt/sources.list.d/papirus-icon-theme.list" ]; then
 	echo "papirus-icon-theme.list does not exist. adding repo..."
   	echo "deb http://ppa.launchpad.net/papirus/papirus/ubuntu bionic main" | sudo tee /etc/apt/sources.list.d/papirus-icon-theme.list
-	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 9461999446FAF0DF770BFC9AE58A9D36647CAE7F
+	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 9461999446FAF0DF770BFC9AE58A9D36647CAE7F || error "Failed to add papirus repo key"
 	sudo apt update
 fi
 echo "papirus-icon-theme.list exists. continuing..."
@@ -185,13 +185,13 @@ mv papirus-icon-theme* $PKGDIR
 echo "Updating lazygit"
 if [ ! -f "/etc/apt/sources.list.d/lazygit.list" ]; then
 	echo "lazygit.list does not exist. adding repo..."
-  echo "deb http://ppa.launchpad.net/lazygit-team/release/ubuntu hirsute main" | sudo tee /etc/apt/sources.list.d/lazygit.list
-	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68CCF87596E97291
+  	echo "deb http://ppa.launchpad.net/lazygit-team/release/ubuntu hirsute main" | sudo tee /etc/apt/sources.list.d/lazygit.list
+	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68CCF87596E97291 || error "Failed to add lazygit repo key"
 fi
 echo "lazygit.list exists. continuing..."
 sudo apt update
-apt download lazygit:armhf
 apt download lazygit:arm64
+apt download lazygit:armhf
 
 rm $PKGDIR/lazygit-* || rm $PKGDIR/lazygit_*
 
