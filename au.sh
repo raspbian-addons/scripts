@@ -215,6 +215,23 @@ rm $PKGDIR/webcord-* || rm $PKGDIR/webcord_*
 
 mv webcord* $PKGDIR
 
+LATEST=`curl -s https://api.github.com/repos/cli/cli/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
+curl -s https://api.github.com/repos/cli/cli/releases/latest \
+  | grep browser_download_url \
+  | grep 'armv6.deb"' \
+  | cut -d '"' -f 4 \
+  | xargs -n 1 curl -L -o gh-$LATEST-armhf.deb || error "Failed to download gh:armhf"
+
+curl -s https://api.github.com/repos/cli/cli/releases/latest \
+  | grep browser_download_url \
+  | grep 'arm64.deb"' \
+  | cut -d '"' -f 4 \
+  | xargs -n 1 curl -L -o gh-$LATEST-arm64.deb || error "Failed to download gh:arm64"
+
+rm $PKGDIR/gh-* || rm $PKGDIR/gh_*
+
+mv gh* $PKGDIR
+
 cd $PKGDIRA
 echo "Writing packages..."
 EMAIL="$(cat /root/email)"
