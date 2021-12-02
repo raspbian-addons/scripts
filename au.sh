@@ -215,6 +215,8 @@ rm $PKGDIR/webcord-* || rm $PKGDIR/webcord_*
 
 mv webcord* $PKGDIR
 
+echo "Updating gh"
+
 LATEST=`curl -s https://api.github.com/repos/cli/cli/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
 curl -s https://api.github.com/repos/cli/cli/releases/latest \
   | grep browser_download_url \
