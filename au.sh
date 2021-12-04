@@ -234,6 +234,52 @@ rm $PKGDIR/gh-* || rm $PKGDIR/gh_*
 
 mv gh* $PKGDIR
 
+echo "Updating tut..."
+# script created by azlux. https://packages.azlux.fr/scripts
+repo="RasmusLindroth/tut"
+api=$(curl --silent "https://api.github.com/repos/$repo/releases/latest")
+new=$(echo $api | grep -Po '"tag_name": "\K.*?(?=")')
+START="tut"
+END="static"
+bin_urls=$(echo $api | python -c "import sys; from json import loads as l; x = l(sys.stdin.read()); print(' '.join(s['browser_download_url'] for s in x['assets'] if (s['name'].startswith('$START') and s['name'].endswith('$END'))))")
+for bin_url in $bin_urls; do
+STARTDIR="/tmp/tut"
+DESTDIR="$STARTDIR/pkg"
+OUTDIR="$STARTDIR/deb"
+rm -rf "$STARTDIR"
+mkdir "$STARTDIR"
+wget -q $bin_url -O "$STARTDIR/tut"
+install -Dm 755 "$STARTDIR/tut" "$DESTDIR/usr/bin/tut"
+mkdir -p "$DESTDIR/DEBIAN"
+archi=$(echo $bin_url | cut -d '-' -f2)
+[ "$archi" == "arm" ] && archi="armhf"
+echo "ARCHI - $archi"
+cat >"$DESTDIR/DEBIAN/control"<<EOL
+Package: tut
+Version: $new
+Section: net
+Priority: optional
+Architecture: $archi
+Maintainer: Ryan Fortner <ryankfortner@gmail.com>
+Description: a Mastodon TUI
+Homepage: https://github.com/RasmusLindroth/tut
+Bugs: https://github.com/RasmusLindroth/tut/issues
+EOL
+cat >"$STARTDIR/changelog"<<EOL
+package ($new) stable; urgency=medium
+  Please check the source repo for the full changelog
+  You can find the link at https://apt.raspbian-addons.org/
+-- ryanfortner <ryankfortner@gmail.com>  $(date -R)
+EOL
+install -Dm 644 "$STARTDIR/changelog" "$DESTDIR/usr/share/doc/tut/changelog.Debian"
+gzip "$DESTDIR/usr/share/doc/tut/changelog.Debian"
+rm -rf "$OUTDIR"
+mkdir  "$OUTDIR"
+dpkg-deb --build "$DESTDIR" "$OUTDIR"
+rm $PKGDIR/tut-* || rm $PKGDIR/tut_*
+mv ${OUTDIR}/tut*.deb $PKGDIR
+rm -rf "$STARTDIR"
+
 cd $PKGDIRA
 echo "Writing packages..."
 EMAIL="$(cat /root/email)"
