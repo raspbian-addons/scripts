@@ -26,6 +26,9 @@ mkdir -p ~/dlfiles
 cd ~/dlfiles
 rm -rf *
 
+# ensure armhf arch is added
+sudo dpkg --add-architecture armhf
+
 echo "Updating VSCodium"
 LATEST=`curl -s https://api.github.com/repos/VSCodium/VSCodium/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
 curl -s https://api.github.com/repos/VSCodium/VSCodium/releases/latest \
@@ -243,6 +246,34 @@ wget https://packages.azlux.fr/debian/pool/main/t/tut/tut_${LATEST}_armhf.deb -O
 rm $PKGDIR/tut_* || rm $PKGDIR/tut-*
 
 mv tut* $PKGDIR
+
+echo "Updating box64..."
+if [ ! -f "/etc/apt/sources.list.d/box64.list" ]; then
+	echo "box64.list does not exist. adding repo..."
+  	sudo wget https://ryanfortner.github.io/box64-debs/box64.list -O /etc/apt/sources.list.d/box64.list || error "failed to add box64.list"
+	wget -qO- https://ryanfortner.github.io/box64-debs/KEY.gpg | sudo apt-key add - || error "Failed to add apt key"
+fi
+echo "box64.list exists. continuing..."
+sudo apt update || error "failed to run apt update"
+apt download box64:arm64 || error "failed to download box64:arm64"
+
+rm $PKGDIR/box64_* || rm $PKGDIR/box64-*
+
+mv box64* $PKGDIR
+
+echo "Updating box86..."
+if [ ! -f "/etc/apt/sources.list.d/box86.list" ]; then
+	echo "box86.list does not exist. adding repo..."
+  	sudo wget https://ryanfortner.github.io/box86-debs/box86.list -O /etc/apt/sources.list.d/box86.list || error "failed to add box86.list"
+	wget -qO- https://ryanfortner.github.io/box86-debs/KEY.gpg | sudo apt-key add - || error "Failed to add apt key"
+fi
+echo "box86.list exists. continuing..."
+sudo apt update || error "failed to run apt update"
+apt download box86:armhf || error "failed to download box86:armhf"
+
+rm $PKGDIR/box86* || rm $PKGDIR/box86-*
+
+mv box86* $PKGDIR
 
 cd $PKGDIRA
 echo "Writing packages..."
