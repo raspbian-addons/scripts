@@ -134,7 +134,7 @@ rm $PKGDIR/turbowarp-desktop-* || rm $PKGDIR/turbowarp-desktop_*
 
 mv turbowarp* $PKGDIR
 
-echo "Updating croc"
+echo "Updating code-server"
 LATEST=`curl -s https://api.github.com/repos/cdr/code-server/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
 curl -s https://api.github.com/repos/cdr/code-server/releases/latest \
   | grep browser_download_url \
