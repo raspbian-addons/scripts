@@ -59,7 +59,6 @@ curl -s https://api.github.com/repos/goreleaser/goreleaser/releases/latest \
   | cut -d '"' -f 4 \
   | xargs -n 1 curl -L -o goreleaser-$LATEST-arm64.deb || error "Failed to download goreleaser:arm64"
 
-rm $PKGDIR/goreleaser-* || rm $PKGDIR/goreleaser_*
 
 mv goreleaser* $PKGDIR
 
@@ -77,7 +76,6 @@ curl -s https://api.github.com/repos/sharkdp/hyperfine/releases/latest \
   | cut -d '"' -f 4 \
   | xargs -n 1 curl -L -o hyperfine-$LATEST-arm64.deb || error "Failed to download hyperfine:arm64"
 
-rm $PKGDIR/hyperfine-* || rm $PKGDIR/hyperfine_*
 
 mv hyperfine* $PKGDIR
 
@@ -89,7 +87,6 @@ curl -s https://api.github.com/repos/boltgolt/howdy/releases/latest \
   | cut -d '"' -f 4 \
   | xargs -n 1 curl -L -o howdy-$LATEST-all.deb || error "Failed to download howdy:all!"
 
-rm $PKGDIR/howdy-* || rm $PKGDIR/howdy_*
 
 mv howdy* $PKGDIR
 
@@ -101,7 +98,6 @@ curl -s https://api.github.com/repos/pacstall/pacstall/releases/latest \
   | cut -d '"' -f 4 \
   | xargs -n 1 curl -L -o pacstall-$LATEST-all.deb || error "Failed to download pacstall:all!"
 
-rm $PKGDIR/pacstall-* || rm $PKGDIR/pacstall_*
 
 mv pacstall* $PKGDIR
 
@@ -119,7 +115,6 @@ curl -s https://api.github.com/repos/schollz/croc/releases/latest \
   | cut -d '"' -f 4 \
   | xargs -n 1 curl -L -o croc-$LATEST-arm64.deb || error "Failed to download croc:arm64"
 
-rm $PKGDIR/croc-* || rm $PKGDIR/croc_*
 
 mv croc* $PKGDIR
 
@@ -128,7 +123,6 @@ LATEST=`curl -s https://api.github.com/repos/TurboWarp/desktop/releases/latest |
 wget https://github.com/TurboWarp/desktop/releases/download/v${LATEST}/TurboWarp-linux-arm64-${LATEST}.deb -O turbowarp-desktop_${LATEST}_arm64.deb || error "Failed to download turbowarp-desktop:arm64!"
 wget https://github.com/TurboWarp/desktop/releases/download/v${LATEST}/TurboWarp-linux-armv7l-${LATEST}.deb -O turbowarp-desktop_${LATEST}_armhf.deb || error "Failed to download turbowarp-desktop:armhf!"
 
-rm $PKGDIR/turbowarp-desktop-* || rm $PKGDIR/turbowarp-desktop_*
 
 mv turbowarp* $PKGDIR
 
@@ -146,7 +140,6 @@ curl -s https://api.github.com/repos/cdr/code-server/releases/latest \
   | cut -d '"' -f 4 \
   | xargs -n 1 curl -L -o code-server-$LATEST-arm64.deb || error "Failed to download code-server:arm64"
 
-rm $PKGDIR/code-server-* || rm $PKGDIR/code-server_*
 
 mv code-server* $PKGDIR
 
@@ -164,7 +157,6 @@ curl -s https://api.github.com/repos/electron/fiddle/releases/latest \
   | cut -d '"' -f 4 \
   | xargs -n 1 curl -L -o electron-fiddle-$LATEST-arm64.deb || error "Failed to download electron-fiddle:arm64"
 
-rm $PKGDIR/electron-fiddle-* || rm $PKGDIR/electron-fiddle_*
 
 mv electron-fiddle* $PKGDIR
 
@@ -179,7 +171,6 @@ echo "papirus-icon-theme.list exists. continuing..."
 sudo apt update
 apt download papirus-icon-theme
 
-rm $PKGDIR/papirus-icon-theme_* || rm $PKGDIR/papirus-icon-theme-*
 
 mv papirus-icon-theme* $PKGDIR
 
@@ -194,7 +185,6 @@ sudo apt update
 apt download lazygit:arm64
 apt download lazygit:armhf
 
-rm $PKGDIR/lazygit_* || rm $PKGDIR/lazygit-*
 
 mv lazygit* $PKGDIR
 
@@ -212,7 +202,6 @@ curl -s https://api.github.com/repos/SpacingBat3/WebCord/releases/latest \
   | cut -d '"' -f 4 \
   | xargs -n 1 curl -L -o webcord-$LATEST-arm64.deb || error "Failed to download webcord:arm64"
 
-rm $PKGDIR/webcord-* || rm $PKGDIR/webcord_*
 
 mv webcord* $PKGDIR
 
@@ -231,7 +220,6 @@ curl -s https://api.github.com/repos/cli/cli/releases/latest \
   | cut -d '"' -f 4 \
   | xargs -n 1 curl -L -o gh-$LATEST-arm64.deb || error "Failed to download gh:arm64"
 
-rm $PKGDIR/gh-* || rm $PKGDIR/gh_*
 
 mv gh* $PKGDIR
 
@@ -241,7 +229,6 @@ LATEST=`curl -s https://api.github.com/repos/RasmusLindroth/tut/releases/latest 
 wget https://packages.azlux.fr/debian/pool/main/t/tut/tut_${LATEST}_arm64.deb -O tut_${LATEST}_arm64.deb || error "Failed to download tut:arm64"
 wget https://packages.azlux.fr/debian/pool/main/t/tut/tut_${LATEST}_armhf.deb -O tut_${LATEST}_armhf.deb || error "Failed to download tut:armhf"
 
-rm $PKGDIR/tut_* || rm $PKGDIR/tut-*
 
 mv tut* $PKGDIR
 
@@ -255,7 +242,6 @@ echo "box64.list exists. continuing..."
 sudo apt update || error "failed to run apt update"
 apt download box64:arm64 || error "failed to download box64:arm64"
 
-rm $PKGDIR/box64_* || rm $PKGDIR/box64-*
 
 mv box64* $PKGDIR
 
@@ -269,7 +255,6 @@ echo "box86.list exists. continuing..."
 sudo apt update || error "failed to run apt update"
 apt download box86:armhf || error "failed to download box86:armhf"
 
-rm $PKGDIR/box86* || rm $PKGDIR/box86-*
 
 mv box86* $PKGDIR
 
@@ -284,7 +269,6 @@ sudo apt update
 apt download drawing:arm64
 apt download drawing:armhf
 
-rm $PKGDIR/drawing_* || rm $PKGDIR/drawing-*
 
 mv drawing* $PKGDIR
 
