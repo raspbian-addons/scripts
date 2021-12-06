@@ -43,8 +43,6 @@ curl -s https://api.github.com/repos/VSCodium/VSCodium/releases/latest \
   | cut -d '"' -f 4 \
   | xargs -n 1 curl -L -o codium-$LATEST-arm64.deb || error "Failed to download codium:arm64"
 
-rm $PKGDIR/codium-* || rm $PKGDIR/codium_*
-
 mv codium* $PKGDIR
 
 echo "Updating Goreleaser"
