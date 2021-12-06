@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # define variables
-PKGDIR="/root/raspbian-addons/pkgs_incoming/"
+PKGDIR="/root/raspbian-addons/debian/pkgs_incoming/"
 #PKGDIRA="/root/raspbian-addons/debian/"
 #GPGPATH="/root/gpgpass"
 #EMAILPATH="/root/email"
