@@ -269,7 +269,6 @@ sudo apt update
 apt download drawing:arm64
 apt download drawing:armhf
 
-
 mv drawing* $PKGDIR
 
 #cd $PKGDIRA
@@ -283,6 +282,6 @@ mv drawing* $PKGDIR
 #gpg --default-key "${EMAIL}" --batch --pinentry-mode="loopback" --passphrase="$GPGPASS" -abs -o - Release > Release.gpg
 #gpg --default-key "${EMAIL}" --batch --pinentry-mode="loopback" --passphrase="$GPGPASS" --clearsign -o - Release > InRelease
 
-cd $HOME/raspbian-addons/ && ./sync.sh || error "failed to run sync.sh!"
+cd $HOME/raspbian-addons/debian && ./sync.sh || error "failed to run sync.sh!"
 
 echo "Repository successfully updated."
