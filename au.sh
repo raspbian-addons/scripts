@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # define variables
-PKGDIR="/root/raspbian-addons/debian/pool/"
-PKGDIRA="/root/raspbian-addons/debian/"
-GPGPATH="/root/gpgpass"
-EMAILPATH="/root/email"
+PKGDIR="/root/raspbian-addons/pkgs_incoming"
+#PKGDIRA="/root/raspbian-addons/debian/"
+#GPGPATH="/root/gpgpass"
+#EMAILPATH="/root/email"
 DATEA="$(date)"
 
 echo $DATEA
@@ -290,14 +290,17 @@ rm $PKGDIR/drawing_* || rm $PKGDIR/drawing-*
 
 mv drawing* $PKGDIR
 
-cd $PKGDIRA
-echo "Writing packages..."
-EMAIL="$(cat /root/email)"
-GPGPASS="$(cat /root/gpgpass)"
-rm InRelease Release Release.gpg Packages Packages.gz
-dpkg-scanpackages --multiversion . > Packages
-gzip -k -f Packages
-apt-ftparchive release . > Release
-gpg --default-key "${EMAIL}" --batch --pinentry-mode="loopback" --passphrase="$GPGPASS" -abs -o - Release > Release.gpg
-gpg --default-key "${EMAIL}" --batch --pinentry-mode="loopback" --passphrase="$GPGPASS" --clearsign -o - Release > InRelease
+#cd $PKGDIRA
+#echo "Writing packages..."
+#EMAIL="$(cat /root/email)"
+#GPGPASS="$(cat /root/gpgpass)"
+#rm InRelease Release Release.gpg Packages Packages.gz
+#dpkg-scanpackages --multiversion . > Packages
+#gzip -k -f Packages
+#apt-ftparchive release . > Release
+#gpg --default-key "${EMAIL}" --batch --pinentry-mode="loopback" --passphrase="$GPGPASS" -abs -o - Release > Release.gpg
+#gpg --default-key "${EMAIL}" --batch --pinentry-mode="loopback" --passphrase="$GPGPASS" --clearsign -o - Release > InRelease
+
+cd $HOME/raspbian-addons/ && ./sync.sh || error "failed to run sync.sh!"
+
 echo "Repository successfully updated."
