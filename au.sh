@@ -275,6 +275,21 @@ rm $PKGDIR/box86* || rm $PKGDIR/box86-*
 
 mv box86* $PKGDIR
 
+echo "Updating drawing"
+if [ ! -f "/etc/apt/sources.list.d/drawing.list" ]; then
+	echo "drawing.list does not exist. adding repo..."
+  	echo "deb http://ppa.launchpad.net/cartes/drawing/ubuntu impish main " | sudo tee /etc/apt/sources.list.d/drawing.list
+	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys A7D69E90DC319136 || error "Failed to add drawing repo key"
+fi
+echo "drawing.list exists. continuing..."
+sudo apt update
+apt download drawing:arm64
+apt download drawing:armhf
+
+rm $PKGDIR/drawing_* || rm $PKGDIR/drawing-*
+
+mv drawing* $PKGDIR
+
 cd $PKGDIRA
 echo "Writing packages..."
 EMAIL="$(cat /root/email)"
