@@ -7,6 +7,7 @@ PKGDIR="/root/raspbian-addons/debian/pkgs_incoming/"
 #EMAILPATH="/root/email"
 DATEA="$(date)"
 
+# print the date to console (for logging purposes)
 echo $DATEA
 
 function error {
@@ -14,14 +15,15 @@ function error {
   exit 1
 }
 
-if [ ! -f ${GPGPASS} ]; then
-  error "gpg file not detected"
-fi
+#if [ ! -f ${GPGPASS} ]; then
+#  error "gpg file not detected"
+#fi
 
-if [ ! -f ${EMAIL} ]; then
-  error "email file not detected"
-fi
+#if [ ! -f ${EMAIL} ]; then
+#  error "email file not detected"
+#fi
 
+# ensure folder for downloads is available
 mkdir -p ~/dlfiles
 cd ~/dlfiles
 rm -rf *
@@ -271,6 +273,7 @@ apt download drawing:armhf
 
 mv drawing* $PKGDIR
 
+# old package write process (not reprepro)
 #cd $PKGDIRA
 #echo "Writing packages..."
 #EMAIL="$(cat /root/email)"
@@ -282,6 +285,7 @@ mv drawing* $PKGDIR
 #gpg --default-key "${EMAIL}" --batch --pinentry-mode="loopback" --passphrase="$GPGPASS" -abs -o - Release > Release.gpg
 #gpg --default-key "${EMAIL}" --batch --pinentry-mode="loopback" --passphrase="$GPGPASS" --clearsign -o - Release > InRelease
 
+# run reprepro sync
 cd $HOME/raspbian-addons/debian && ./sync.sh || error "failed to run sync.sh!"
 
 echo "Repository successfully updated."
