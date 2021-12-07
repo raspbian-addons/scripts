@@ -1,5 +1,11 @@
 #!/bin/bash
 
+#########################################
+#                au.sh                  #
+# downloads and writes certain packages #
+#           every 24 hours              #
+#########################################
+
 # define variables
 PKGDIR="/root/raspbian-addons/debian/pkgs_incoming/"
 #PKGDIRA="/root/raspbian-addons/debian/"
