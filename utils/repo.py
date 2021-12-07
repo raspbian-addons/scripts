@@ -49,7 +49,7 @@ def add_gpg_key():
     print('Installing GnuPG...')
     exec('sudo apt update && sudo apt install -y gnupg || exit 1', "Failed to install GnuPG!")
     print('Adding GPG key...')
-    exec('sudo mkdir -p /etc/apt/trusted.gpg.d && cd /etc/apt/trusted.gpg.d && sudo wget https://apt.raspbian-addons.org/KEY.gpg || exit 1', "Failed to add GPG key!")
+    exec('wget -O- https://apt.raspbian-addons.org/KEY.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/raspbian-addons-archive-keyring.gpg || exit 1', "Failed to add GPG key!")
     print('Creating package list...')
 
 def update():
@@ -203,7 +203,7 @@ if __name__ == "__main__":
         print('Removing package list...')
         exec('sudo rm /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to remove rpirepo.list!")
         print('Removing GPG key...')
-        exec('sudo rm /etc/apt/trusted.gpg.d/KEY.gpg || exit 1', "Failed to remove gpg key!")
+        exec('sudo rm /usr/share/keyrings/raspbian-addons-archive-keyring.gpg || exit 1', "Failed to remove gpg key!")
         print('Updating APT lists...')
         exec('sudo apt update || exit 1', "Failed to add update apt lists!")
 
