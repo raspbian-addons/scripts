@@ -49,7 +49,7 @@ def add_gpg_key():
     print('Installing GnuPG...')
     exec('sudo apt update && sudo apt install -y gnupg || exit 1', "Failed to install GnuPG!")
     print('Adding GPG key...')
-    exec('wget -qO- https://apt.raspbian-addons.org/KEY.gpg | sudo apt-key add - || exit 1', "Failed to add GPG key!")
+    exec('sudo wget https://apt.raspbian-addons.org/KEY.gpg -O /usr/share/keyrings/raspbian-addons-archive-keyring.gpg || exit 1', "Failed to add GPG key!")
     print('Creating package list...')
 
 def update():
