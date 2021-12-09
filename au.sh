@@ -285,7 +285,7 @@ curl -s https://api.github.com/repos/Figma-Linux/figma-linux/releases/latest \
   | grep browser_download_url \
   | grep 'arm64.deb"' \
   | cut -d '"' -f 4 \
-  | xargs -n 1 curl -L -o $PKGDIR/figma-linux-$LATEST-arm64.deb || error "Failed to download figma-linux:arm64"
+  | xargs -n 1 curl -L -o figma-linux-$LATEST-arm64.deb || error "Failed to download figma-linux:arm64"
 
 mv figma-linux* $PKGDIR
 
