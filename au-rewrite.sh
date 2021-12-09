@@ -88,7 +88,7 @@ if [ "$GORELEASER_CURRENT" != "$GORELEASER_API" ]; then
 fi
 echo "goreleaser is up to date."
 
-echo "Writing packages."
+echo "Writing packages using reprepro."
 cd /root/raspbian-addons/debian
 for new_pkg in `ls pkgs_incoming`; do
     echo $new_pkg
