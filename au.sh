@@ -279,6 +279,8 @@ apt download drawing:armhf
 
 mv drawing* $PKGDIR
 
+echo "updating 
+
 # old package write process (not reprepro)
 #cd $PKGDIRA
 #echo "Writing packages..."
@@ -291,7 +293,7 @@ mv drawing* $PKGDIR
 #gpg --default-key "${EMAIL}" --batch --pinentry-mode="loopback" --passphrase="$GPGPASS" -abs -o - Release > Release.gpg
 #gpg --default-key "${EMAIL}" --batch --pinentry-mode="loopback" --passphrase="$GPGPASS" --clearsign -o - Release > InRelease
 
-# run reprepro sync
-cd $HOME/raspbian-addons/debian && ./sync.sh || error "failed to run sync.sh!"
+# run reprepro sync (currently disabled to prevent errors for now
+# cd $HOME/raspbian-addons/debian && ./sync.sh || error "failed to run sync.sh!"
 
 echo "Repository successfully updated."
