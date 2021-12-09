@@ -56,8 +56,9 @@ if [ "$CODIUM_CURRENT" != "$CODIUM_API" ]; then
       | xargs -n 1 curl -L -o codium_${CODIUM_API}_arm64.deb || error "Failed to download codium:arm64"
 
     mv codium* $PKGDIR
-    echo "vscodium downloaded successfully."
+    echo "codium downloaded successfully."
 fi
+echo "codium is up to date."
 
 echo "Updating goreleaser."
 GORELEASER_API=`curl -s https://api.github.com/repos/goreleaser/goreleaser/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
@@ -85,6 +86,7 @@ if [ "$GORELEASER_CURRENT" != "$GORELEASER_API" ]; then
     mv goreleaser* $PKGDIR
     echo "goreleaser downloaded successfully."
 fi
+echo "goreleaser is up to date."
 
 echo "Writing packages."
 cd /root/raspbian-addons/debian
