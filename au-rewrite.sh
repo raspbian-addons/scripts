@@ -40,25 +40,49 @@ if [ ! -f "$CODIUM_DATAFILE" ]; then
     echo "Grabbing the latest release from GitHub."
     echo $CODIUM_API > $CODIUM_DATAFILE
 fi
-CODIUM_CURRENT="$(cat $CODIUM_DATAFILE)"
+CODIUM_CURRENT="$(cat ${CODIUM_DATAFILE})"
 if [ "$CODIUM_CURRENT" != "$CODIUM_API" ]; then
     curl -s https://api.github.com/repos/VSCodium/VSCodium/releases/latest \
       | grep browser_download_url \
       | grep 'armhf.deb"' \
       | cut -d '"' -f 4 \
-      | xargs -n 1 curl -L -o codium_${LATEST}_armhf.deb || error "Failed to download the codium:armhf"
+      | xargs -n 1 curl -L -o codium_${CODIUM_API}_armhf.deb || error "Failed to download the codium:armhf"
 
     curl -s https://api.github.com/repos/VSCodium/VSCodium/releases/latest \
       | grep browser_download_url \
       | grep 'arm64.deb"' \
       | cut -d '"' -f 4 \
-      | xargs -n 1 curl -L -o codium_${LATEST}_arm64.deb || error "Failed to download codium:arm64"
+      | xargs -n 1 curl -L -o codium_${CODIUM_API}_arm64.deb || error "Failed to download codium:arm64"
 
     mv codium* $PKGDIR
     echo "vscodium downloaded successfully."
 fi
 
+echo "Updating goreleaser."
+GORELEASER_API=`curl -s https://api.github.com/repos/goreleaser/goreleaser/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
+GORELEASER_DATAFILE="$HOME/dlfiles-data/goreleaser.txt"
+if [ ! -f "$GORELEASER_DATAFILE" ]; then
+    echo "$GORELEASER_DATAFILE does not exist."
+    echo "Grabbing the latest release from GitHub."
+    echo $GORELEASER_API > $GORELEASER_DATAFILE
+fi
+GORELEASER_CURRENT="$(cat ${GORELEASER_DATAFILE})"
+if [ "$GORELEASER_CURRENT" != "$GORELEASER_API" ]; then
+    curl -s https://api.github.com/repos/goreleaser/goreleaser/releases/latest \
+      | grep browser_download_url \
+      | grep 'armhf.deb"' \
+      | cut -d '"' -f 4 \
+      | xargs -n 1 curl -L -o goreleaser_${GORELEASER_API}_armhf.deb || error "Failed to download goreleaser:armhf"
 
+    curl -s https://api.github.com/repos/goreleaser/goreleaser/releases/latest \
+      | grep browser_download_url \
+      | grep 'arm64.deb"' \
+      | cut -d '"' -f 4 \
+      | xargs -n 1 curl -L -o goreleaser_${GORELEASER_API}_arm64.deb || error "Failed to download goreleaser:arm64"
+
+    mv goreleaser* $PKGDIR
+    echo "goreleaser downloaded successfully."
+fi
 
 echo "Writing packages."
 cd /root/raspbian-addons/debian
