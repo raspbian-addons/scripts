@@ -42,6 +42,7 @@ if [ ! -f "$CODIUM_DATAFILE" ]; then
 fi
 CODIUM_CURRENT="$(cat ${CODIUM_DATAFILE})"
 if [ "$CODIUM_CURRENT" != "$CODIUM_API" ]; then
+    echo "codium isn't up to date. updating now..."
     curl -s https://api.github.com/repos/VSCodium/VSCodium/releases/latest \
       | grep browser_download_url \
       | grep 'armhf.deb"' \
@@ -68,6 +69,7 @@ if [ ! -f "$GORELEASER_DATAFILE" ]; then
 fi
 GORELEASER_CURRENT="$(cat ${GORELEASER_DATAFILE})"
 if [ "$GORELEASER_CURRENT" != "$GORELEASER_API" ]; then
+    echo "goreleaser isn't up to date. updating now..."
     curl -s https://api.github.com/repos/goreleaser/goreleaser/releases/latest \
       | grep browser_download_url \
       | grep 'armhf.deb"' \
