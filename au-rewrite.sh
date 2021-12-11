@@ -56,6 +56,7 @@ if [ "$CODIUM_CURRENT" != "$CODIUM_API" ]; then
       | xargs -n 1 curl -L -o codium_${CODIUM_API}_arm64.deb || error "Failed to download codium:arm64"
 
     mv codium* $PKGDIR
+    echo $CODIUM_API > $CODIUM_DATAFILE
     echo "codium downloaded successfully."
 fi
 echo "codium is up to date."
@@ -84,6 +85,7 @@ if [ "$GORELEASER_CURRENT" != "$GORELEASER_API" ]; then
       | xargs -n 1 curl -L -o goreleaser_${GORELEASER_API}_arm64.deb || error "Failed to download goreleaser:arm64"
 
     mv goreleaser* $PKGDIR
+    echo $GORELEASER_API > $GORELEASER_DATAFILE
     echo "goreleaser downloaded successfully."
 fi
 echo "goreleaser is up to date."
@@ -112,6 +114,7 @@ if [ "$HYPERFINE_CURRENT" != "$HYPERFINE_API" ]; then
       | xargs -n 1 curl -L -o hyperfine_${HYPERFINE_API}_arm64.deb || error "Failed to download hyperfine:arm64"
 
     mv hyperfine* $PKGDIR
+    echo $HYPERFINE_API > $HYPERFINE_DATAFILE
     echo "hyperfine downloaded successfully."
 fi
 echo "hyperfine is up to date."
