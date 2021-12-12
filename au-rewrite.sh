@@ -120,6 +120,53 @@ fi
 echo "hyperfine is up to date."
 
 echo "Updating blockbench."
+BLOCKBENCH_API=`curl -s https://api.github.com/repos/JannisX11/blockbench/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
+BLOCKBENCH_DATAFILE="$HOME/dlfiles-data/blockbench.txt"
+if [ ! -f "$BLOCKBENCH_DATAFILE" ]; then
+    echo "$BLOCKBENCH_DATAFILE does not exist."
+    echo "Grabbing the latest release from GitHub."
+    echo $BLOCKBENCH_API > $BLOCKBENCH_DATAFILE
+fi
+BLOCKBENCH_CURRENT="$(cat ${BLOCKBENCH_DATAFILE})"
+if [ "$BLOCKBENCH_CURRENT" != "$BLOCKBENCH_API" ]; then
+    echo "blockbench isn't up to date. updating now..."
+    BLOCKBENCH_API_NOV=`curl -s https://api.github.com/repos/JannisX11/blockbench/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")' | tr -d 'v'`
+    wget https://github.com/ryanfortner/blockbench-arm/raw/master/blockbench_${BLOCKBENCH_API_NOV}_arm64.deb || error "Failed to download blockbench:arm64"
+    wget https://github.com/ryanfortner/blockbench-arm/raw/master/blockbench_${BLOCKBENCH_API_NOV}_armhf.deb || error "Failed to download blockbench:armhf"
+    mv blockbench* $PKGDIR
+    echo $BLOCKBENCH_API > $BLOCKBENCH_DATAFILE
+    echo "blockbench downloaded successfully."
+fi
+echo "blockbench is up to date."
+
+echo "Updating webcord."
+WEBCORD_API=`curl -s https://api.github.com/repos/SpacingBat3/WebCord/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
+WEBCORD_DATAFILE="$HOME/dlfiles-data/webcord.txt"
+if [ ! -f "$WEBCORD_DATAFILE" ]; then
+    echo "$WEBCORD_DATAFILE does not exist."
+    echo "Grabbing the latest release from GitHub."
+    echo $WEBCORD_API > $WEBCORD_DATAFILE
+fi
+WEBCORD_CURRENT="$(cat ${WEBCORD_DATAFILE})"
+if [ "$WEBCORD_CURRENT" != "$WEBCORD_API" ]; then
+    echo "webcord isn't up to date. updating now..."
+    curl -s https://api.github.com/repos/SpacingBat3/WebCord/releases/latest \
+      | grep browser_download_url \
+      | grep 'armhf.deb"' \
+      | cut -d '"' -f 4 \
+      | xargs -n 1 curl -L -o webcord_${WEBCORD_API}_armhf.deb || error "Failed to download webcord:armhf"
+
+    curl -s https://api.github.com/repos/SpacingBat3/WebCord/releases/latest \
+      | grep browser_download_url \
+      | grep 'arm64.deb"' \
+      | cut -d '"' -f 4 \
+      | xargs -n 1 curl -L -o webcord_${WEBCORD_API}_arm64.deb || error "Failed to download webcord:arm64"
+
+    mv webcord* $PKGDIR
+    echo $WEBCORD_API > $WEBCORD_DATAFILE
+    echo "webcord downloaded successfully."
+fi
+echo "webcord is up to date."
 
 echo "Writing packages."
 cd /root/raspbian-addons/debian
