@@ -49,7 +49,7 @@ def add_gpg_key():
     print('Installing GnuPG...')
     exec('sudo apt update && sudo apt install -y gnupg || exit 1', "Failed to install GnuPG!")
     print('Adding GPG key...')
-    exec('wget -O- https://apt.raspbian-addons.org/KEY.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/raspbian-addons-archive-keyring.gpg || exit 1', "Failed to add GPG key!")
+    exec('curl -fsSL https://apt.raspbian-addons.org/KEY.gpg | sudo gpg --dearmor -o /usr/share/keyrings/raspbian-addons-archive-keyring.gpg || exit 1', "Failed to add GPG key!")
     print('Creating package list...')
 
 def update():
@@ -88,12 +88,12 @@ if __name__ == "__main__":
         add_gpg_key()
         exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] http://storage.osdn.net/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
         update()
-        
+
     elif int(option) == 4:
         add_gpg_key()
         exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://osdn.dl.osdn.net/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
         update()
-        
+
     elif int(option) == 5:
         add_gpg_key()
         exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://mirrors.xtom.com/osdn/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
@@ -133,7 +133,7 @@ if __name__ == "__main__":
         add_gpg_key()
         exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://mirror.iscas.ac.cn/osdn/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
         update()
-        
+
     elif int(option) == 13:
         add_gpg_key()
         exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://mirror.sjtu.edu.cn/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
@@ -143,12 +143,12 @@ if __name__ == "__main__":
         add_gpg_key()
         exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://mirrors.nju.edu.cn/osdn/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
         update()
-        
+
     elif int(option) == 15:
         add_gpg_key()
         exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://mirrors.ustc.edu.cn/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
         update()
-        
+
     elif int(option) == 16:
         add_gpg_key()
         exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://mirror.xtom.com.hk/osdn/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
