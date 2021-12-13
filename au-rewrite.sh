@@ -188,6 +188,29 @@ if [ "$GITEA_CURRENT" != "$GITEA_API" ]; then
 fi
 echo "gitea is up to date."
 
+echo "Updating howdy."
+HOWDY_API=`curl -s https://api.github.com/repos/boltgolt/howdy/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
+HOWDY_DATAFILE="$HOME/dlfiles-data/howdy.txt"
+if [ ! -f "$HOWDY_DATAFILE" ]; then
+    echo "$HOWDY_DATAFILE does not exist."
+    echo "Grabbing the latest release from GitHub."
+    echo $HOWDY_API > $HOWDY_DATAFILE
+fi
+HOWDY_CURRENT="$(cat ${HOWDY_DATAFILE})"
+if [ "$HOWDY_CURRENT" != "$HOWDY_API" ]; then
+    echo "howdy isn't up to date. updating now..."
+    curl -s https://api.github.com/repos/boltgolt/howdy/releases/latest \
+      | grep browser_download_url \
+      | grep '.deb"' \
+      | cut -d '"' -f 4 \
+      | xargs -n 1 curl -L -o howdy_${HOWDY_API}_all.deb || error "Failed to download howdy:all!"
+
+    mv howdy* $PKGDIR
+    echo $HOWDY_API > $HOWDY_DATAFILE
+    echo "howdy downloaded successfully."
+fi
+echo "howdy is up to date."
+
 echo "Writing packages."
 cd /root/raspbian-addons/debian
 for new_pkg in `ls pkgs_incoming`; do
