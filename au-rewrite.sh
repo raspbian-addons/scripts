@@ -211,57 +211,6 @@ if [ "$HOWDY_CURRENT" != "$HOWDY_API" ]; then
 fi
 echo "howdy is up to date."
 
-echo "Updating webhookd."
-WEBHOOKD_API=`curl -s https://api.github.com/repos/ncarlier/webhookd/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
-WEBHOOKD_DATAFILE="$HOME/dlfiles-data/webhookd.txt"
-if [ ! -f "$WEBHOOKD_DATAFILE" ]; then
-    echo "$WEBHOOKD_DATAFILE does not exist."
-    echo "Grabbing the latest release from GitHub."
-    echo $WEBHOOKD_API > $WEBHOOKD_DATAFILE
-fi
-WEBHOOKD_CURRENT="$(cat ${WEBHOOKD_DATAFILE})"
-if [ "$WEBHOOKD_CURRENT" != "$WEBHOOKD_API" ]; then
-    echo "webhookd isn't up to date. updating now..."
-    all_dist=('arm' 'arm64')
-    for dist in "${all_dist[@]}"; do
-
-      STARTDIR="$(pwd)"
-      rm -rf ${STARTDIR}
-      DESTDIR="$STARTDIR/pkg"
-      OUTDIR="$STARTDIR/deb"
-      mkdir "$OUTDIR"
-
-      # Remove potential leftovers from a previous build
-      rm -rf "$DESTDIR"
-
-      wget -q https://github.com/ncarlier/webhookd/releases/download/v${WEBHOOKD_API}/webhookd-linux-$dist.tgz -O "$STARTDIR/tar.tgz" || error "Failed to download webhookd tar.gz"
-      tar xzf "$STARTDIR/tar.tgz" -C "$STARTDIR/"
-      wget -q https://raw.githubusercontent.com/ncarlier/webhookd/master/etc/default/webhookd.env -O "$STARTDIR/webhookd.env" || error "Failed to download webhookd env file"
-    
-      install -Dm 755 "$STARTDIR/webhookd" "$DESTDIR/usr/local/bin/webhookd"
-      install -Dm 755 "$STARTDIR/webhookd.env" "$DESTDIR/etc/default/webhookd.env"
-      install -Dm 644 "$STARTDIR/webhookd.service" "$DESTDIR/etc/systemd/system/webhookd.service" 
-    
-      mkdir -p "$DESTDIR/DEBIAN"
-      [ ! -d /tmp/dpkg-deb ] && git clone https://github.com/ryanfortner/dpkg-deb.git /tmp/dpkg-deb --quiet || error "Failed to clone webhookd"
-      cp /tmp/dpkg-deb/webhookd/DEBIAN/* "$DESTDIR/DEBIAN/"
-    
-      # Modify control file for build
-      sed -i "s/VERSION-TO-REPLACE/${WEBHOOKD_API}/" "$DESTDIR/DEBIAN/control"
-    
-      [ "$dist" == "arm" ] &&  dist="armhf"
-      sed -i "s/ARCHI-TO-REPLACE/$dist/" "$DESTDIR/DEBIAN/control"
-    
-      # Build .deb
-      dpkg-deb --build "$DESTDIR" "$OUTDIR" || error "Failed to build webhookd deb"
-
-    done
-    mv $OUTDIR/*.deb * $PKGDIR
-    echo $WEBHOOKD_API > $WEBHOOKD_DATAFILE
-    echo "webhookd downloaded successfully."
-fi
-echo "webhookd is up to date."
-
 echo "Writing packages."
 cd /root/raspbian-addons/debian
 for new_pkg in `ls pkgs_incoming`; do
