@@ -226,6 +226,7 @@ if [ "$WEBHOOKD_CURRENT" != "$WEBHOOKD_API" ]; then
     for dist in "${all_dist[@]}"; do
 
       STARTDIR="$(pwd)"
+      rm -rf ${STARTDIR}
       DESTDIR="$STARTDIR/pkg"
       OUTDIR="$STARTDIR/deb"
       mkdir "$OUTDIR"
@@ -233,16 +234,16 @@ if [ "$WEBHOOKD_CURRENT" != "$WEBHOOKD_API" ]; then
       # Remove potential leftovers from a previous build
       rm -rf "$DESTDIR"
 
-      wget -q https://github.com/ncarlier/webhookd/releases/download/v${WEBHOOKD_API}/webhookd-linux-$dist.tgz -O "$STARTDIR/tar.tgz"
+      wget -q https://github.com/ncarlier/webhookd/releases/download/v${WEBHOOKD_API}/webhookd-linux-$dist.tgz -O "$STARTDIR/tar.tgz" || error "Failed to download webhookd tar.gz"
       tar xzf "$STARTDIR/tar.tgz" -C "$STARTDIR/"
-      wget -q https://raw.githubusercontent.com/ncarlier/webhookd/master/etc/default/webhookd.env -O "$STARTDIR/webhookd.env"
+      wget -q https://raw.githubusercontent.com/ncarlier/webhookd/master/etc/default/webhookd.env -O "$STARTDIR/webhookd.env" || error "Failed to download webhookd env file"
     
       install -Dm 755 "$STARTDIR/webhookd" "$DESTDIR/usr/local/bin/webhookd"
       install -Dm 755 "$STARTDIR/webhookd.env" "$DESTDIR/etc/default/webhookd.env"
       install -Dm 644 "$STARTDIR/webhookd.service" "$DESTDIR/etc/systemd/system/webhookd.service" 
     
       mkdir -p "$DESTDIR/DEBIAN"
-      [ ! -d /tmp/dpkg-deb ] && git clone https://github.com/ryanfortner/dpkg-deb.git /tmp/dpkg-deb --quiet
+      [ ! -d /tmp/dpkg-deb ] && git clone https://github.com/ryanfortner/dpkg-deb.git /tmp/dpkg-deb --quiet || error "Failed to clone webhookd"
       cp /tmp/dpkg-deb/webhookd/DEBIAN/* "$DESTDIR/DEBIAN/"
     
       # Modify control file for build
@@ -252,7 +253,7 @@ if [ "$WEBHOOKD_CURRENT" != "$WEBHOOKD_API" ]; then
       sed -i "s/ARCHI-TO-REPLACE/$dist/" "$DESTDIR/DEBIAN/control"
     
       # Build .deb
-      dpkg-deb --build "$DESTDIR" "$OUTDIR"
+      dpkg-deb --build "$DESTDIR" "$OUTDIR" || error "Failed to build webhookd deb"
 
     done
     mv $OUTDIR/*.deb * $PKGDIR
