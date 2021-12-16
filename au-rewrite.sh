@@ -242,7 +242,8 @@ if [ "$WEBHOOKD_CURRENT" != "$WEBHOOKD_API" ]; then
       install -Dm 644 "$STARTDIR/webhookd.service" "$DESTDIR/etc/systemd/system/webhookd.service" 
     
       mkdir -p "$DESTDIR/DEBIAN"
-      cp "$STARTDIR/DEBIAN/"* "$DESTDIR/DEBIAN/"
+      [ ! -d /tmp/dpkg-deb ] && git clone https://github.com/ryanfortner/dpkg-deb.git /tmp/dpkg-deb --quiet
+      cp /tmp/dpkg-deb/webhookd/DEBIAN/* "$DESTDIR/DEBIAN/"
     
       # Modify control file for build
       sed -i "s/VERSION-TO-REPLACE/${WEBHOOKD_API}/" "$DESTDIR/DEBIAN/control"
@@ -258,6 +259,7 @@ if [ "$WEBHOOKD_CURRENT" != "$WEBHOOKD_API" ]; then
     echo $WEBHOOKD_API > $WEBHOOKD_DATAFILE
     echo "webhookd downloaded successfully."
 fi
+echo "webhookd is up to date."
 
 echo "Writing packages."
 cd /root/raspbian-addons/debian
