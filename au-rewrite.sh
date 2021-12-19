@@ -32,7 +32,7 @@ function red {
   echo -e "\e[91m$1\e[39m"
 }
 
-cyan() { #cyan text to indicate what is happening
+status() { #cyan text to indicate what is happening
     #detect if a flag was passed, and if so, pass it on to the echo command
     if [[ "$1" == '-'* ]] && [ ! -z "$2" ];then
         echo -e $1 "\e[96m$2\e[0m" 1>&2
