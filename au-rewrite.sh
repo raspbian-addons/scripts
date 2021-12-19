@@ -211,6 +211,34 @@ if [ "$HOWDY_CURRENT" != "$HOWDY_API" ]; then
 fi
 echo "howdy is up to date."
 
+echo "Updating koreader."
+KOREADER_API=`curl -s https://api.github.com/repos/koreader/koreader/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
+KOREADER_DATAFILE="$HOME/dlfiles-data/koreader.txt"
+if [ ! -f "$KOREADER_DATAFILE" ]; then
+    echo "$KOREADER_DATAFILE does not exist."
+    echo "Grabbing the latest release from GitHub."
+    echo $KOREADER_API > $KOREADER_DATAFILE
+fi
+KOREADER_CURRENT="$(cat ${KOREADER_DATAFILE})"
+if [ "$KOREADER_CURRENT" != "$KOREADER_API" ]; then
+    echo "koreader isn't up to date. updating now..."
+    curl -s https://api.github.com/repos/koreader/koreader/releases/latest \
+      | grep browser_download_url \
+      | grep 'armhf.deb"' \
+      | cut -d '"' -f 4 \
+      | xargs -n 1 curl -L -o koreader_${KOREADER_API}_armhf.deb || error "Failed to download koreader:armhf!"
+    curl -s https://api.github.com/repos/koreader/koreader/releases/latest \
+      | grep browser_download_url \
+      | grep 'arm64.deb"' \
+      | cut -d '"' -f 4 \
+      | xargs -n 1 curl -L -o koreader_${KOREADER_API}_arm64.deb || error "Failed to download koreader:arm64!"
+
+    mv koreader* $PKGDIR
+    echo $KOREADER_API > $KOREADER_CURRENT
+    echo "koreader downloaded successfully."
+fi
+echo "koreader is up to date."
+
 echo "Writing packages."
 cd /root/raspbian-addons/debian
 for new_pkg in `ls pkgs_incoming`; do
