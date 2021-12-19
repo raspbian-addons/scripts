@@ -28,21 +28,34 @@ function error {
   exit 1
 }
 
-function redtext {
+function red {
   echo -e "\e[91m$1\e[39m"
 }
 
-echo "Updating codium."
+cyan() { #cyan text to indicate what is happening
+    #detect if a flag was passed, and if so, pass it on to the echo command
+    if [[ "$1" == '-'* ]] && [ ! -z "$2" ];then
+        echo -e $1 "\e[96m$2\e[0m" 1>&2
+    else
+        echo -e "\e[96m$1\e[0m" 1>&2
+    fi
+}
+
+green() { #announce the success of a major action
+    echo -e "\e[92m$1\e[0m" 1>&2
+}
+
+status "Updating codium."
 CODIUM_API=`curl -s https://api.github.com/repos/VSCodium/VSCodium/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
 CODIUM_DATAFILE="$HOME/dlfiles-data/codium.txt"
 if [ ! -f "$CODIUM_DATAFILE" ]; then
-    echo "$CODIUM_DATAFILE does not exist."
-    echo "Grabbing the latest release from GitHub."
+    status "$CODIUM_DATAFILE does not exist."
+    status "Grabbing the latest release from GitHub."
     echo $CODIUM_API > $CODIUM_DATAFILE
 fi
 CODIUM_CURRENT="$(cat ${CODIUM_DATAFILE})"
 if [ "$CODIUM_CURRENT" != "$CODIUM_API" ]; then
-    echo "codium isn't up to date. updating now..."
+    status "codium isn't up to date. updating now..."
     curl -s https://api.github.com/repos/VSCodium/VSCodium/releases/latest \
       | grep browser_download_url \
       | grep 'armhf.deb"' \
@@ -57,21 +70,21 @@ if [ "$CODIUM_CURRENT" != "$CODIUM_API" ]; then
 
     mv codium* $PKGDIR
     echo $CODIUM_API > $CODIUM_DATAFILE
-    echo "codium downloaded successfully."
+    green "codium downloaded successfully."
 fi
-echo "codium is up to date."
+green "codium is up to date."
 
-echo "Updating goreleaser."
+status "Updating goreleaser."
 GORELEASER_API=`curl -s https://api.github.com/repos/goreleaser/goreleaser/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
 GORELEASER_DATAFILE="$HOME/dlfiles-data/goreleaser.txt"
 if [ ! -f "$GORELEASER_DATAFILE" ]; then
-    echo "$GORELEASER_DATAFILE does not exist."
-    echo "Grabbing the latest release from GitHub."
+    status "$GORELEASER_DATAFILE does not exist."
+    status "Grabbing the latest release from GitHub."
     echo $GORELEASER_API > $GORELEASER_DATAFILE
 fi
 GORELEASER_CURRENT="$(cat ${GORELEASER_DATAFILE})"
 if [ "$GORELEASER_CURRENT" != "$GORELEASER_API" ]; then
-    echo "goreleaser isn't up to date. updating now..."
+    status "goreleaser isn't up to date. updating now..."
     curl -s https://api.github.com/repos/goreleaser/goreleaser/releases/latest \
       | grep browser_download_url \
       | grep 'armhf.deb"' \
@@ -86,21 +99,21 @@ if [ "$GORELEASER_CURRENT" != "$GORELEASER_API" ]; then
 
     mv goreleaser* $PKGDIR
     echo $GORELEASER_API > $GORELEASER_DATAFILE
-    echo "goreleaser downloaded successfully."
+    green "goreleaser downloaded successfully."
 fi
-echo "goreleaser is up to date."
+green "goreleaser is up to date."
 
-echo "Updating hyperfine."
+status "Updating hyperfine."
 HYPERFINE_API=`curl -s https://api.github.com/repos/sharkdp/hyperfine/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
 HYPERFINE_DATAFILE="$HOME/dlfiles-data/hyperfine.txt"
 if [ ! -f "$HYPERFINE_DATAFILE" ]; then
-    echo "$HYPERFINE_DATAFILE does not exist."
-    echo "Grabbing the latest release from GitHub."
+    status "$HYPERFINE_DATAFILE does not exist."
+    status "Grabbing the latest release from GitHub."
     echo $HYPERFINE_API > $HYPERFINE_DATAFILE
 fi
 HYPERFINE_CURRENT="$(cat ${HYPERFINE_DATAFILE})"
 if [ "$HYPERFINE_CURRENT" != "$HYPERFINE_API" ]; then
-    echo "hyperfine isn't up to date. updating now..."
+    status "hyperfine isn't up to date. updating now..."
     curl -s https://api.github.com/repos/sharkdp/hyperfine/releases/latest \
       | grep browser_download_url \
       | grep 'armhf.deb"' \
@@ -115,41 +128,41 @@ if [ "$HYPERFINE_CURRENT" != "$HYPERFINE_API" ]; then
 
     mv hyperfine* $PKGDIR
     echo $HYPERFINE_API > $HYPERFINE_DATAFILE
-    echo "hyperfine downloaded successfully."
+    green "hyperfine downloaded successfully."
 fi
-echo "hyperfine is up to date."
+green "hyperfine is up to date."
 
-echo "Updating blockbench."
+status "Updating blockbench."
 BLOCKBENCH_API=`curl -s https://api.github.com/repos/JannisX11/blockbench/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
 BLOCKBENCH_DATAFILE="$HOME/dlfiles-data/blockbench.txt"
 if [ ! -f "$BLOCKBENCH_DATAFILE" ]; then
-    echo "$BLOCKBENCH_DATAFILE does not exist."
-    echo "Grabbing the latest release from GitHub."
+    status "$BLOCKBENCH_DATAFILE does not exist."
+    status "Grabbing the latest release from GitHub."
     echo $BLOCKBENCH_API > $BLOCKBENCH_DATAFILE
 fi
 BLOCKBENCH_CURRENT="$(cat ${BLOCKBENCH_DATAFILE})"
 if [ "$BLOCKBENCH_CURRENT" != "$BLOCKBENCH_API" ]; then
-    echo "blockbench isn't up to date. updating now..."
+    status "blockbench isn't up to date. updating now..."
     BLOCKBENCH_API_NOV=`curl -s https://api.github.com/repos/JannisX11/blockbench/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")' | tr -d 'v'`
     wget https://github.com/ryanfortner/blockbench-arm/raw/master/blockbench_${BLOCKBENCH_API_NOV}_arm64.deb || error "Failed to download blockbench:arm64"
     wget https://github.com/ryanfortner/blockbench-arm/raw/master/blockbench_${BLOCKBENCH_API_NOV}_armhf.deb || error "Failed to download blockbench:armhf"
     mv blockbench* $PKGDIR
     echo $BLOCKBENCH_API > $BLOCKBENCH_DATAFILE
-    echo "blockbench downloaded successfully."
+    green "blockbench downloaded successfully."
 fi
-echo "blockbench is up to date."
+green "blockbench is up to date."
 
-echo "Updating webcord."
+status "Updating webcord."
 WEBCORD_API=`curl -s https://api.github.com/repos/SpacingBat3/WebCord/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
 WEBCORD_DATAFILE="$HOME/dlfiles-data/webcord.txt"
 if [ ! -f "$WEBCORD_DATAFILE" ]; then
-    echo "$WEBCORD_DATAFILE does not exist."
-    echo "Grabbing the latest release from GitHub."
+    status "$WEBCORD_DATAFILE does not exist."
+    status "Grabbing the latest release from GitHub."
     echo $WEBCORD_API > $WEBCORD_DATAFILE
 fi
 WEBCORD_CURRENT="$(cat ${WEBCORD_DATAFILE})"
 if [ "$WEBCORD_CURRENT" != "$WEBCORD_API" ]; then
-    echo "webcord isn't up to date. updating now..."
+    status "webcord isn't up to date. updating now..."
     curl -s https://api.github.com/repos/SpacingBat3/WebCord/releases/latest \
       | grep browser_download_url \
       | grep 'armhf.deb"' \
@@ -164,41 +177,41 @@ if [ "$WEBCORD_CURRENT" != "$WEBCORD_API" ]; then
 
     mv webcord* $PKGDIR
     echo $WEBCORD_API > $WEBCORD_DATAFILE
-    echo "webcord downloaded successfully."
+    green "webcord downloaded successfully."
 fi
-echo "webcord is up to date."
+green "webcord is up to date."
 
-echo "Updating gitea."
+status "Updating gitea."
 GITEA_API=`curl -s https://api.github.com/repos/go-gitea/gitea/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
 GITEA_DATAFILE="$HOME/dlfiles-data/gitea.txt"
 if [ ! -f "$GITEA_DATAFILE" ]; then
-    echo "$GITEA_DATAFILE does not exist."
-    echo "Grabbing the latest release from GitHub."
+    status "$GITEA_DATAFILE does not exist."
+    status "Grabbing the latest release from GitHub."
     echo $GITEA_API > $GITEA_DATAFILE
 fi
 GITEA_CURRENT="$(cat ${GITEA_DATAFILE})"
 if [ "$GITEA_CURRENT" != "$GITEA_API" ]; then
-    echo "gitea isn't up to date. updating now..."
+    status "gitea isn't up to date. updating now..."
     GITEA_API_NOV=`curl -s https://api.github.com/repos/go-gitea/gitea/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")' | tr -d 'v'`
     wget https://github.com/ryanfortner/gitea-arm/raw/master/debs/gitea_${GITEA_API_NOV}_arm64.deb || error "Failed to download gitea:arm64"
     wget https://github.com/ryanfortner/gitea-arm/raw/master/debs/gitea_${GITEA_API_NOV}_armhf.deb || error "Failed to download gitea:armhf"
     mv gitea* $PKGDIR
     echo $GITEA_API > $GITEA_DATAFILE
-    echo "gitea downloaded successfully."
+    green "gitea downloaded successfully."
 fi
-echo "gitea is up to date."
+green "gitea is up to date."
 
-echo "Updating howdy."
+status "Updating howdy."
 HOWDY_API=`curl -s https://api.github.com/repos/boltgolt/howdy/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
 HOWDY_DATAFILE="$HOME/dlfiles-data/howdy.txt"
 if [ ! -f "$HOWDY_DATAFILE" ]; then
-    echo "$HOWDY_DATAFILE does not exist."
-    echo "Grabbing the latest release from GitHub."
+    status "$HOWDY_DATAFILE does not exist."
+    status "Grabbing the latest release from GitHub."
     echo $HOWDY_API > $HOWDY_DATAFILE
 fi
 HOWDY_CURRENT="$(cat ${HOWDY_DATAFILE})"
 if [ "$HOWDY_CURRENT" != "$HOWDY_API" ]; then
-    echo "howdy isn't up to date. updating now..."
+    status "howdy isn't up to date. updating now..."
     curl -s https://api.github.com/repos/boltgolt/howdy/releases/latest \
       | grep browser_download_url \
       | grep '.deb"' \
@@ -207,21 +220,21 @@ if [ "$HOWDY_CURRENT" != "$HOWDY_API" ]; then
 
     mv howdy* $PKGDIR
     echo $HOWDY_API > $HOWDY_DATAFILE
-    echo "howdy downloaded successfully."
+    green "howdy downloaded successfully."
 fi
-echo "howdy is up to date."
+green "howdy is up to date."
 
-echo "Updating koreader."
+status "Updating koreader."
 KOREADER_API=`curl -s https://api.github.com/repos/koreader/koreader/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
 KOREADER_DATAFILE="$HOME/dlfiles-data/koreader.txt"
 if [ ! -f "$KOREADER_DATAFILE" ]; then
-    echo "$KOREADER_DATAFILE does not exist."
-    echo "Grabbing the latest release from GitHub."
+    status "$KOREADER_DATAFILE does not exist."
+    status "Grabbing the latest release from GitHub."
     echo $KOREADER_API > $KOREADER_DATAFILE
 fi
 KOREADER_CURRENT="$(cat ${KOREADER_DATAFILE})"
 if [ "$KOREADER_CURRENT" != "$KOREADER_API" ]; then
-    echo "koreader isn't up to date. updating now..."
+    status "koreader isn't up to date. updating now..."
     curl -s https://api.github.com/repos/koreader/koreader/releases/latest \
       | grep browser_download_url \
       | grep 'armhf.deb"' \
@@ -234,19 +247,42 @@ if [ "$KOREADER_CURRENT" != "$KOREADER_API" ]; then
       | xargs -n 1 curl -L -o koreader_${KOREADER_API}_arm64.deb || error "Failed to download koreader:arm64!"
 
     mv koreader* $PKGDIR
-    echo $KOREADER_API > $KOREADER_CURRENT
-    echo "koreader downloaded successfully."
+    echo $KOREADER_API > $KOREADER_DATAFILE
+    green "koreader downloaded successfully."
 fi
-echo "koreader is up to date."
+green "koreader is up to date."
 
-echo "Writing packages."
+status "Updating icalingua."
+ICALINGUIA_API=`curl -s https://api.github.com/repos/Icalingua/Icalingua/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
+ICALINGUA_DATAFILE="$HOME/dlfiles-data/icalingua.txt"
+if [ ! -f "$ICALINGUA_DATAFILE" ]; then
+    status "$ICALINGUA_DATAFILE does not exist."
+    status "Grabbing the latest release from GitHub."
+    echo $ICALINGUIA_API > $ICALINGUA_DATAFILE
+fi
+ICALINGUA_CURRENT="$(cat ${ICALINGUA_DATAFILE})"
+if [ "$ICALINGUA_CURRENT" != "$ICALINGUIA_API" ]; then
+    status "icalingua isn't up to date. updating now..."
+    curl -s https://api.github.com/repos/Icalingua/Icalingua/releases/latest \
+      | grep browser_download_url \
+      | grep 'arm64.deb"' \
+      | cut -d '"' -f 4 \
+      | xargs -n 1 curl -L -o icalingua_${ICALINGUIA_API}_arm64.deb || error "Failed to download icalingua:arm64!"
+
+    mv icalingua* $PKGDIR
+    echo $ICALINGUIA_API > $ICALINGUA_DATAFILE
+    green "icalingua downloaded successfully."
+fi
+green "icalingua is up to date."
+
+status "Writing packages."
 cd /root/raspbian-addons/debian
 for new_pkg in `ls pkgs_incoming`; do
-    echo $new_pkg
+    status $new_pkg
     #reprepro_expect
     /root/reprepro.exp -- --noguessgpgtty -Vb /root/raspbian-addons/debian/ includedeb precise /root/raspbian-addons/debian/pkgs_incoming/$new_pkg
     if [ $? != 0 ]; then
-        redtext "Import of $new_pkg failed!"
+        red "Import of $new_pkg failed!"
     else
         rm -rf pkgs_incoming/$new_pkg
     fi
