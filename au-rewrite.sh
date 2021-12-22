@@ -9,6 +9,7 @@
 PKGDIR="/root/raspbian-addons/debian/pkgs_incoming/"
 DATEA="$(date)"
 
+# This part takes the token from the token script. This is a READ ONLY token, and is only used so that there are more github api requests available.
 source /root/token.sh
 
 # print the date to console (for logging purposes)
