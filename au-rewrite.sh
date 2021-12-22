@@ -275,6 +275,53 @@ if [ "$ICALINGUA_CURRENT" != "$ICALINGUIA_API" ]; then
 fi
 green "icalingua is up to date."
 
+status "Updating turbowarp-desktop."
+TURBOWARP-DESKTOP_API=`curl -s https://api.github.com/repos/TurboWarp/desktop/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")' | tr -d 'v'`
+TURBOWARP-DESKTOP_DATAFILE="$HOME/dlfiles-data/turbowarp-desktop.txt"
+if [ ! -f "${TURBOWARP-DESKTOP_DATAFILE}" ]; then
+    status "${TURBOWARP-DESKTOP_DATAFILE} does not exist."
+    status "Grabbing the latest release from GitHub."
+    echo ${TURBOWARP-DESKTOP_API} > ${TURBOWARP-DESKTOP_DATAFILE}
+fi
+TURBOWARP-DESKTOP_CURRENT="$(cat ${TURBOWARP-DESKTOP_DATAFILE})"
+if [ "${TURBOWARP-DESKTOP_CURRENT}" != "${TURBOWARP-DESKTOP_API}" ]; then
+    status "turbowarp-desktop isn't up to date. updating now..."
+    wget https://github.com/TurboWarp/desktop/releases/download/v${TURBOWARP-DESKTOP_API}/TurboWarp-linux-arm64-{TURBOWARP-DESKTOP_API}.deb -O turbowarp-desktop_${TURBOWARP-DESKTOP_API}_arm64.deb || error "Failed to download turbowarp-desktop:arm64"
+    wget https://github.com/TurboWarp/desktop/releases/download/v${TURBOWARP-DESKTOP_API}/TurboWarp-linux-armv7l-${TURBOWARP-DESKTOP_API}.deb -O turbowarp-desktop_${TURBOWARP-DESKTOP_API}_armhf.deb || error "Failed to download turbowarp-desktop:armhf"
+    mv turbowarp-desktop* $PKGDIR
+    echo ${TURBOWARP-DESKTOP_API} > ${TURBOWARP-DESKTOP_DATAFILE}
+    green "turbowarp-desktop downloaded successfully."
+fi
+green "turbowarp-desktop is up to date."
+
+status "Updating gh."
+GH_API=`curl -s https://api.github.com/repos/cli/cli/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
+GH_DATAFILE="$HOME/dlfiles-data/gh.txt"
+if [ ! -f "$GH_DATAFILE" ]; then
+    status "$GH_DATAFILE does not exist."
+    status "Grabbing the latest release from GitHub."
+    echo $GH_API > $GH_DATAFILE
+fi
+GH_CURRENT="$(cat ${GH_DATAFILE})"
+if [ "$GH_CURRENT" != "$GH_API" ]; then
+    status "gh isn't up to date. updating now..."
+    curl -s https://api.github.com/repos/cli/cli/releases/latest \
+      | grep browser_download_url \
+      | grep 'arm64.deb"' \
+      | cut -d '"' -f 4 \
+      | xargs -n 1 curl -L -o gh_${GH_API}_arm64.deb || error "Failed to download gh:arm64!"
+    curl -s https://api.github.com/repos/cli/cli/releases/latest \
+      | grep browser_download_url \
+      | grep 'armv6.deb"' \
+      | cut -d '"' -f 4 \
+      | xargs -n 1 curl -L -o gh_${GH_API}_armhf.deb || error "Failed to download gh:armhf!"
+
+    mv gh* $PKGDIR
+    echo $GH_API > $GH_DATAFILE
+    green "gh downloaded successfully."
+fi
+green "gh is up to date."
+
 status "Writing packages."
 cd /root/raspbian-addons/debian
 for new_pkg in `ls pkgs_incoming`; do
