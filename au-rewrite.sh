@@ -335,7 +335,7 @@ if [ ! -f "$CLOUDFLARED_DATAFILE" ]; then
 fi
 CLOUDFLARED_CURRENT="$(cat ${CLOUDFLARED_DATAFILE})"
 if [ "$CLOUDFLARED_CURRENT" != "$CLOUDFLARED_API" ]; then
-    status "gh isn't up to date. updating now..."
+    status "cloudflared isn't up to date. updating now..."
     curl -s --header --header "Authorization: token $token" https://api.github.com/repos/cloudflare/cloudflared/releases/latest \
       | grep browser_download_url \
       | grep 'arm64.deb"' \
