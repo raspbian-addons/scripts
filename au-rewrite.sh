@@ -353,6 +353,42 @@ if [ "$CLOUDFLARED_CURRENT" != "$CLOUDFLARED_API" ]; then
 fi
 green "cloudflared is up to date."
 
+status "Updating polychromatic, polychromatic-cli, polychromatic-common, polychromatic-controller, polychromatic-tray-applet."
+POLYCHROMATIC_API=`curl -s --header --header "Authorization: token $token" https://api.github.com/repos/polychromatic/polychromatic/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
+POLYCHROMATIC_DATAFILE="$HOME/dlfiles-data/polychromatic.txt"
+if [ ! -f "$POLYCHROMATIC_DATAFILE" ]; then
+    status "$POLYCHROMATIC_DATAFILE does not exist."
+    status "Grabbing the latest release from GitHub."
+    echo $POLYCHROMATIC_API > $POLYCHROMATIC_DATAFILE
+fi
+POLYCHROMATIC_CURRENT="$(cat ${POLYCHROMATIC_DATAFILE})"
+if [ "$POLYCHROMATIC_CURRENT" != "$POLYCHROMATIC_API" ]; then
+    status "polychromatic isn't up to date. updating now..."
+    if [ ! -f "/etc/apt/sources.list.d/polychromatic.list" ]; then
+	      echo "polychromatic.list does not exist. adding repo..."
+  	    echo "deb http://ppa.launchpad.net/polychromatic/stable/ubuntu focal main" | sudo tee /etc/apt/sources.list.d/polychromatic.list
+	      sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 96B9CD7C22E2C8C5
+	      sudo apt update
+    fi
+    echo "polychromatic.list exists. continuing..."
+    sudo apt update
+    apt download polychromatic:armhf || error "Failed to download polychromatic:armhf"
+    apt download polychromatic:arm64 || error "Failed to download polychromatic:arm64"
+    apt download polychromatic-cli:armhf || error "Failed to download polychromatic-cli:armhf"
+    apt download polychromatic-cli:arm64 || error "Failed to download polychromatic-cli:arm64"
+    apt download polychromatic-common:armhf || error "Failed to download polychromatic-common:armhf"
+    apt download polychromatic-common:arm64 || error "Failed to download polychromatic-common:arm64"
+    apt download polychromatic-controller:armhf || error "Failed to download polychromatic-controller:armhf"
+    apt download polychromatic-controller:arm64 || error "Failed to download polychromatic-controller:arm64"
+    apt download polychromatic-tray-applet:armhf || error "Failed to download polychromatic-tray-applet:armhf"
+    apt download polychromatic-tray-applet:arm64 || error "Failed to download polychromatic-tray-applet:arm64"
+
+    mv polychromatic* $PKGDIR
+    echo $POLYCHROMATIC_API > $POLYCHROMATIC_DATAFILE
+    green "polychromatic downloaded successfully."
+fi
+green "polychromatic is up to date."
+
 status "Writing packages."
 cd /root/raspbian-addons/debian
 for new_pkg in `ls pkgs_incoming`; do
