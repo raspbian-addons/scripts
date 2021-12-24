@@ -372,16 +372,11 @@ if [ "$POLYCHROMATIC_CURRENT" != "$POLYCHROMATIC_API" ]; then
     fi
     echo "polychromatic.list exists. continuing..."
     sudo apt update
-    apt download polychromatic:armhf || error "Failed to download polychromatic:armhf"
-    apt download polychromatic:arm64 || error "Failed to download polychromatic:arm64"
-    apt download polychromatic-cli:armhf || error "Failed to download polychromatic-cli:armhf"
-    apt download polychromatic-cli:arm64 || error "Failed to download polychromatic-cli:arm64"
-    apt download polychromatic-common:armhf || error "Failed to download polychromatic-common:armhf"
-    apt download polychromatic-common:arm64 || error "Failed to download polychromatic-common:arm64"
-    apt download polychromatic-controller:armhf || error "Failed to download polychromatic-controller:armhf"
-    apt download polychromatic-controller:arm64 || error "Failed to download polychromatic-controller:arm64"
-    apt download polychromatic-tray-applet:armhf || error "Failed to download polychromatic-tray-applet:armhf"
-    apt download polychromatic-tray-applet:arm64 || error "Failed to download polychromatic-tray-applet:arm64"
+    apt download polychromatic:all || error "Failed to download polychromatic:all"
+    apt download polychromatic-cli:all || error "Failed to download polychromatic-cli:all"
+    apt download polychromatic-common:all || error "Failed to download polychromatic-common:all"
+    apt download polychromatic-controller:all || error "Failed to download polychromatic-controller:all"
+    apt download polychromatic-tray-applet:all || error "Failed to download polychromatic-tray-applet:all"
 
     mv polychromatic* $PKGDIR
     echo $POLYCHROMATIC_API > $POLYCHROMATIC_DATAFILE
