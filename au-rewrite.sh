@@ -59,13 +59,13 @@ fi
 CODIUM_CURRENT="$(cat ${CODIUM_DATAFILE})"
 if [ "$CODIUM_CURRENT" != "$CODIUM_API" ]; then
     status "codium isn't up to date. updating now..."
-    curl -s --header --header "Authorization: token $token" https://api.github.com/repos/VSCodium/VSCodium/releases/latest \
+    curl -s --header "Authorization: token $token" https://api.github.com/repos/VSCodium/VSCodium/releases/latest \
       | grep browser_download_url \
       | grep 'armhf.deb"' \
       | cut -d '"' -f 4 \
       | xargs -n 1 curl -L -o codium_${CODIUM_API}_armhf.deb || error "Failed to download the codium:armhf"
 
-    curl -s --header --header "Authorization: token $token" https://api.github.com/repos/VSCodium/VSCodium/releases/latest \
+    curl -s --header "Authorization: token $token" https://api.github.com/repos/VSCodium/VSCodium/releases/latest \
       | grep browser_download_url \
       | grep 'arm64.deb"' \
       | cut -d '"' -f 4 \
@@ -78,7 +78,7 @@ fi
 green "codium is up to date."
 
 status "Updating goreleaser."
-GORELEASER_API=`curl -s --header --header "Authorization: token $token" https://api.github.com/repos/goreleaser/goreleaser/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
+GORELEASER_API=`curl -s --header "Authorization: token $token" https://api.github.com/repos/goreleaser/goreleaser/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
 GORELEASER_DATAFILE="$HOME/dlfiles-data/goreleaser.txt"
 if [ ! -f "$GORELEASER_DATAFILE" ]; then
     status "$GORELEASER_DATAFILE does not exist."
@@ -88,13 +88,13 @@ fi
 GORELEASER_CURRENT="$(cat ${GORELEASER_DATAFILE})"
 if [ "$GORELEASER_CURRENT" != "$GORELEASER_API" ]; then
     status "goreleaser isn't up to date. updating now..."
-    curl -s --header --header "Authorization: token $token" https://api.github.com/repos/goreleaser/goreleaser/releases/latest \
+    curl -s --header "Authorization: token $token" https://api.github.com/repos/goreleaser/goreleaser/releases/latest \
       | grep browser_download_url \
       | grep 'armhf.deb"' \
       | cut -d '"' -f 4 \
       | xargs -n 1 curl -L -o goreleaser_${GORELEASER_API}_armhf.deb || error "Failed to download goreleaser:armhf"
 
-    curl -s --header --header "Authorization: token $token" https://api.github.com/repos/goreleaser/goreleaser/releases/latest \
+    curl -s --header "Authorization: token $token" https://api.github.com/repos/goreleaser/goreleaser/releases/latest \
       | grep browser_download_url \
       | grep 'arm64.deb"' \
       | cut -d '"' -f 4 \
@@ -107,7 +107,7 @@ fi
 green "goreleaser is up to date."
 
 status "Updating hyperfine."
-HYPERFINE_API=`curl -s --header --header "Authorization: token $token" https://api.github.com/repos/sharkdp/hyperfine/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
+HYPERFINE_API=`curl -s --header "Authorization: token $token" https://api.github.com/repos/sharkdp/hyperfine/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
 HYPERFINE_DATAFILE="$HOME/dlfiles-data/hyperfine.txt"
 if [ ! -f "$HYPERFINE_DATAFILE" ]; then
     status "$HYPERFINE_DATAFILE does not exist."
@@ -117,13 +117,13 @@ fi
 HYPERFINE_CURRENT="$(cat ${HYPERFINE_DATAFILE})"
 if [ "$HYPERFINE_CURRENT" != "$HYPERFINE_API" ]; then
     status "hyperfine isn't up to date. updating now..."
-    curl -s --header --header "Authorization: token $token" https://api.github.com/repos/sharkdp/hyperfine/releases/latest \
+    curl -s --header "Authorization: token $token" https://api.github.com/repos/sharkdp/hyperfine/releases/latest \
       | grep browser_download_url \
       | grep 'armhf.deb"' \
       | cut -d '"' -f 4 \
       | xargs -n 1 curl -L -o hyperfine_${HYPERFINE_API}_armhf.deb || error "Failed to download hyperfine:armhf"
 
-    curl -s --header --header "Authorization: token $token" https://api.github.com/repos/sharkdp/hyperfine/releases/latest \
+    curl -s --header "Authorization: token $token" https://api.github.com/repos/sharkdp/hyperfine/releases/latest \
       | grep browser_download_url \
       | grep 'arm64.deb"' \
       | cut -d '"' -f 4 \
@@ -136,7 +136,7 @@ fi
 green "hyperfine is up to date."
 
 status "Updating blockbench."
-BLOCKBENCH_API=`curl -s --header --header "Authorization: token $token" https://api.github.com/repos/JannisX11/blockbench/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
+BLOCKBENCH_API=`curl -s --header "Authorization: token $token" https://api.github.com/repos/JannisX11/blockbench/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
 BLOCKBENCH_DATAFILE="$HOME/dlfiles-data/blockbench.txt"
 if [ ! -f "$BLOCKBENCH_DATAFILE" ]; then
     status "$BLOCKBENCH_DATAFILE does not exist."
@@ -146,7 +146,7 @@ fi
 BLOCKBENCH_CURRENT="$(cat ${BLOCKBENCH_DATAFILE})"
 if [ "$BLOCKBENCH_CURRENT" != "$BLOCKBENCH_API" ]; then
     status "blockbench isn't up to date. updating now..."
-    BLOCKBENCH_API_NOV=`curl -s --header --header "Authorization: token $token" https://api.github.com/repos/JannisX11/blockbench/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")' | tr -d 'v'`
+    BLOCKBENCH_API_NOV=`curl -s --header "Authorization: token $token" https://api.github.com/repos/JannisX11/blockbench/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")' | tr -d 'v'`
     wget https://github.com/ryanfortner/blockbench-arm/raw/master/blockbench_${BLOCKBENCH_API_NOV}_arm64.deb || error "Failed to download blockbench:arm64"
     wget https://github.com/ryanfortner/blockbench-arm/raw/master/blockbench_${BLOCKBENCH_API_NOV}_armhf.deb || error "Failed to download blockbench:armhf"
     mv blockbench* $PKGDIR
@@ -156,7 +156,7 @@ fi
 green "blockbench is up to date."
 
 status "Updating webcord."
-WEBCORD_API=`curl -s --header --header "Authorization: token $token" https://api.github.com/repos/SpacingBat3/WebCord/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
+WEBCORD_API=`curl -s --header "Authorization: token $token" https://api.github.com/repos/SpacingBat3/WebCord/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
 WEBCORD_DATAFILE="$HOME/dlfiles-data/webcord.txt"
 if [ ! -f "$WEBCORD_DATAFILE" ]; then
     status "$WEBCORD_DATAFILE does not exist."
@@ -166,13 +166,13 @@ fi
 WEBCORD_CURRENT="$(cat ${WEBCORD_DATAFILE})"
 if [ "$WEBCORD_CURRENT" != "$WEBCORD_API" ]; then
     status "webcord isn't up to date. updating now..."
-    curl -s --header --header "Authorization: token $token" https://api.github.com/repos/SpacingBat3/WebCord/releases/latest \
+    curl -s --header "Authorization: token $token" https://api.github.com/repos/SpacingBat3/WebCord/releases/latest \
       | grep browser_download_url \
       | grep 'armhf.deb"' \
       | cut -d '"' -f 4 \
       | xargs -n 1 curl -L -o webcord_${WEBCORD_API}_armhf.deb || error "Failed to download webcord:armhf"
 
-    curl -s --header --header "Authorization: token $token" https://api.github.com/repos/SpacingBat3/WebCord/releases/latest \
+    curl -s --header "Authorization: token $token" https://api.github.com/repos/SpacingBat3/WebCord/releases/latest \
       | grep browser_download_url \
       | grep 'arm64.deb"' \
       | cut -d '"' -f 4 \
@@ -185,7 +185,7 @@ fi
 green "webcord is up to date."
 
 status "Updating gitea."
-GITEA_API=`curl -s --header --header "Authorization: token $token" https://api.github.com/repos/go-gitea/gitea/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
+GITEA_API=`curl -s --header "Authorization: token $token" https://api.github.com/repos/go-gitea/gitea/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
 GITEA_DATAFILE="$HOME/dlfiles-data/gitea.txt"
 if [ ! -f "$GITEA_DATAFILE" ]; then
     status "$GITEA_DATAFILE does not exist."
@@ -195,7 +195,7 @@ fi
 GITEA_CURRENT="$(cat ${GITEA_DATAFILE})"
 if [ "$GITEA_CURRENT" != "$GITEA_API" ]; then
     status "gitea isn't up to date. updating now..."
-    GITEA_API_NOV=`curl -s --header --header "Authorization: token $token" https://api.github.com/repos/go-gitea/gitea/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")' | tr -d 'v'`
+    GITEA_API_NOV=`curl -s --header "Authorization: token $token" https://api.github.com/repos/go-gitea/gitea/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")' | tr -d 'v'`
     wget https://github.com/ryanfortner/gitea-arm/raw/master/debs/gitea_${GITEA_API_NOV}_arm64.deb || error "Failed to download gitea:arm64"
     wget https://github.com/ryanfortner/gitea-arm/raw/master/debs/gitea_${GITEA_API_NOV}_armhf.deb || error "Failed to download gitea:armhf"
     mv gitea* $PKGDIR
@@ -205,7 +205,7 @@ fi
 green "gitea is up to date."
 
 status "Updating howdy."
-HOWDY_API=`curl -s --header --header "Authorization: token $token" https://api.github.com/repos/boltgolt/howdy/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
+HOWDY_API=`curl -s --header "Authorization: token $token" https://api.github.com/repos/boltgolt/howdy/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
 HOWDY_DATAFILE="$HOME/dlfiles-data/howdy.txt"
 if [ ! -f "$HOWDY_DATAFILE" ]; then
     status "$HOWDY_DATAFILE does not exist."
@@ -215,7 +215,7 @@ fi
 HOWDY_CURRENT="$(cat ${HOWDY_DATAFILE})"
 if [ "$HOWDY_CURRENT" != "$HOWDY_API" ]; then
     status "howdy isn't up to date. updating now..."
-    curl -s --header --header "Authorization: token $token" https://api.github.com/repos/boltgolt/howdy/releases/latest \
+    curl -s --header "Authorization: token $token" https://api.github.com/repos/boltgolt/howdy/releases/latest \
       | grep browser_download_url \
       | grep '.deb"' \
       | cut -d '"' -f 4 \
@@ -228,7 +228,7 @@ fi
 green "howdy is up to date."
 
 status "Updating koreader."
-KOREADER_API=`curl -s --header --header "Authorization: token $token" https://api.github.com/repos/koreader/koreader/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
+KOREADER_API=`curl -s --header "Authorization: token $token" https://api.github.com/repos/koreader/koreader/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
 KOREADER_DATAFILE="$HOME/dlfiles-data/koreader.txt"
 if [ ! -f "$KOREADER_DATAFILE" ]; then
     status "$KOREADER_DATAFILE does not exist."
@@ -238,12 +238,12 @@ fi
 KOREADER_CURRENT="$(cat ${KOREADER_DATAFILE})"
 if [ "$KOREADER_CURRENT" != "$KOREADER_API" ]; then
     status "koreader isn't up to date. updating now..."
-    curl -s --header --header "Authorization: token $token" https://api.github.com/repos/koreader/koreader/releases/latest \
+    curl -s --header "Authorization: token $token" https://api.github.com/repos/koreader/koreader/releases/latest \
       | grep browser_download_url \
       | grep 'armhf.deb"' \
       | cut -d '"' -f 4 \
       | xargs -n 1 curl -L -o koreader_${KOREADER_API}_armhf.deb || error "Failed to download koreader:armhf!"
-    curl -s --header --header "Authorization: token $token" https://api.github.com/repos/koreader/koreader/releases/latest \
+    curl -s --header "Authorization: token $token" https://api.github.com/repos/koreader/koreader/releases/latest \
       | grep browser_download_url \
       | grep 'arm64.deb"' \
       | cut -d '"' -f 4 \
@@ -256,7 +256,7 @@ fi
 green "koreader is up to date."
 
 status "Updating icalingua."
-ICALINGUIA_API=`curl -s --header --header "Authorization: token $token" https://api.github.com/repos/Icalingua/Icalingua/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
+ICALINGUIA_API=`curl -s --header "Authorization: token $token" https://api.github.com/repos/Icalingua/Icalingua/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
 ICALINGUA_DATAFILE="$HOME/dlfiles-data/icalingua.txt"
 if [ ! -f "$ICALINGUA_DATAFILE" ]; then
     status "$ICALINGUA_DATAFILE does not exist."
@@ -266,7 +266,7 @@ fi
 ICALINGUA_CURRENT="$(cat ${ICALINGUA_DATAFILE})"
 if [ "$ICALINGUA_CURRENT" != "$ICALINGUIA_API" ]; then
     status "icalingua isn't up to date. updating now..."
-    curl -s --header --header "Authorization: token $token" https://api.github.com/repos/Icalingua/Icalingua/releases/latest \
+    curl -s --header "Authorization: token $token" https://api.github.com/repos/Icalingua/Icalingua/releases/latest \
       | grep browser_download_url \
       | grep 'arm64.deb"' \
       | cut -d '"' -f 4 \
@@ -279,7 +279,7 @@ fi
 green "icalingua is up to date."
 
 status "Updating turbowarp-desktop."
-TURBOWARP_API=`curl -s --header --header "Authorization: token $token" https://api.github.com/repos/TurboWarp/desktop/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")' | tr -d 'v'`
+TURBOWARP_API=`curl -s --header "Authorization: token $token" https://api.github.com/repos/TurboWarp/desktop/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")' | tr -d 'v'`
 TURBOWARP_DATAFILE="$HOME/dlfiles-data/turbowarp-desktop.txt"
 if [ ! -f "${TURBOWARP_DATAFILE}" ]; then
     status "${TURBOWARP_DATAFILE} does not exist."
@@ -298,7 +298,7 @@ fi
 green "turbowarp-desktop is up to date."
 
 status "Updating gh."
-GH_API=`curl -s --header --header "Authorization: token $token" https://api.github.com/repos/cli/cli/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
+GH_API=`curl -s --header "Authorization: token $token" https://api.github.com/repos/cli/cli/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
 GH_DATAFILE="$HOME/dlfiles-data/gh.txt"
 if [ ! -f "$GH_DATAFILE" ]; then
     status "$GH_DATAFILE does not exist."
@@ -308,12 +308,12 @@ fi
 GH_CURRENT="$(cat ${GH_DATAFILE})"
 if [ "$GH_CURRENT" != "$GH_API" ]; then
     status "gh isn't up to date. updating now..."
-    curl -s --header --header "Authorization: token $token" https://api.github.com/repos/cli/cli/releases/latest \
+    curl -s --header "Authorization: token $token" https://api.github.com/repos/cli/cli/releases/latest \
       | grep browser_download_url \
       | grep 'arm64.deb"' \
       | cut -d '"' -f 4 \
       | xargs -n 1 curl -L -o gh_${GH_API}_arm64.deb || error "Failed to download gh:arm64!"
-    curl -s --header --header "Authorization: token $token" https://api.github.com/repos/cli/cli/releases/latest \
+    curl -s --header "Authorization: token $token" https://api.github.com/repos/cli/cli/releases/latest \
       | grep browser_download_url \
       | grep 'armv6.deb"' \
       | cut -d '"' -f 4 \
@@ -326,7 +326,7 @@ fi
 green "gh is up to date."
 
 status "Updating cloudflared."
-CLOUDFLARED_API=`curl -s --header --header "Authorization: token $token" https://api.github.com/repos/cloudflare/cloudflared/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
+CLOUDFLARED_API=`curl -s --header "Authorization: token $token" https://api.github.com/repos/cloudflare/cloudflared/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
 CLOUDFLARED_DATAFILE="$HOME/dlfiles-data/cloudflared.txt"
 if [ ! -f "$CLOUDFLARED_DATAFILE" ]; then
     status "$CLOUDFLARED_DATAFILE does not exist."
@@ -336,12 +336,12 @@ fi
 CLOUDFLARED_CURRENT="$(cat ${CLOUDFLARED_DATAFILE})"
 if [ "$CLOUDFLARED_CURRENT" != "$CLOUDFLARED_API" ]; then
     status "cloudflared isn't up to date. updating now..."
-    curl -s --header --header "Authorization: token $token" https://api.github.com/repos/cloudflare/cloudflared/releases/latest \
+    curl -s --header "Authorization: token $token" https://api.github.com/repos/cloudflare/cloudflared/releases/latest \
       | grep browser_download_url \
       | grep 'arm64.deb"' \
       | cut -d '"' -f 4 \
       | xargs -n 1 curl -L -o cloudflared_${CLOUDFLARED_API}_arm64.deb || error "Failed to download cloudflared:arm64!"
-    curl -s --header --header "Authorization: token $token" https://api.github.com/repos/cloudflare/cloudflared/releases/latest \
+    curl -s --header "Authorization: token $token" https://api.github.com/repos/cloudflare/cloudflared/releases/latest \
       | grep browser_download_url \
       | grep 'arm.deb"' \
       | cut -d '"' -f 4 \
@@ -354,7 +354,7 @@ fi
 green "cloudflared is up to date."
 
 status "Updating polychromatic, polychromatic-cli, polychromatic-common, polychromatic-controller, polychromatic-tray-applet."
-POLYCHROMATIC_API=`curl -s --header --header "Authorization: token $token" https://api.github.com/repos/polychromatic/polychromatic/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
+POLYCHROMATIC_API=`curl -s --header "Authorization: token $token" https://api.github.com/repos/polychromatic/polychromatic/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
 POLYCHROMATIC_DATAFILE="$HOME/dlfiles-data/polychromatic.txt"
 if [ ! -f "$POLYCHROMATIC_DATAFILE" ]; then
     status "$POLYCHROMATIC_DATAFILE does not exist."
@@ -385,7 +385,7 @@ fi
 green "polychromatic is up to date."
 
 status "Updating fm."
-FM_API=`curl -s --header --header "Authorization: token $token" https://api.github.com/repos/knipferrc/fm/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
+FM_API=`curl -s --header "Authorization: token $token" https://api.github.com/repos/knipferrc/fm/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
 FM_DATAFILE="$HOME/dlfiles-data/fm.txt"
 if [ ! -f "$FM_DATAFILE" ]; then
     status "$FM_DATAFILE does not exist."
@@ -395,7 +395,7 @@ fi
 FM_CURRENT="$(cat ${FM_DATAFILE})"
 if [ "$FM_CURRENT" != "$FM_API" ]; then
     status "fm isn't up to date. updating now..."
-    curl -s --header --header "Authorization: token $token" https://api.github.com/repos/knipferrc/fm/releases/latest \
+    curl -s --header "Authorization: token $token" https://api.github.com/repos/knipferrc/fm/releases/latest \
       | grep browser_download_url \
       | grep 'arm64.deb"' \
       | cut -d '"' -f 4 \
@@ -408,7 +408,7 @@ fi
 green "fm is up to date."
 
 status "Updating grype."
-GRYPE_API=`curl -s --header --header "Authorization: token $token" https://api.github.com/repos/anchore/grype/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
+GRYPE_API=`curl -s --header "Authorization: token $token" https://api.github.com/repos/anchore/grype/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
 GRYPE_DATAFILE="$HOME/dlfiles-data/grype.txt"
 if [ ! -f "$GRYPE_DATAFILE" ]; then
     status "$GRYPE_DATAFILE does not exist."
@@ -418,7 +418,7 @@ fi
 GRYPE_CURRENT="$(cat ${GRYPE_DATAFILE})"
 if [ "$GRYPE_CURRENT" != "$GRYPE_API" ]; then
     status "grype isn't up to date. updating now..."
-    curl -s --header --header "Authorization: token $token" https://api.github.com/repos/anchore/grype/releases/latest \
+    curl -s --header "Authorization: token $token" https://api.github.com/repos/anchore/grype/releases/latest \
       | grep browser_download_url \
       | grep 'arm64.deb"' \
       | cut -d '"' -f 4 \
@@ -431,7 +431,7 @@ fi
 green "grype is up to date."
 
 status "Updating min."
-MIN_API=`curl -s --header --header "Authorization: token $token" https://api.github.com/repos/minbrowser/min/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
+MIN_API=`curl -s --header "Authorization: token $token" https://api.github.com/repos/minbrowser/min/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
 MIN_DATAFILE="$HOME/dlfiles-data/min.txt"
 if [ ! -f "$MIN_DATAFILE" ]; then
     status "$MIN_DATAFILE does not exist."
@@ -441,12 +441,12 @@ fi
 MIN_CURRENT="$(cat ${MIN_DATAFILE})"
 if [ "$MIN_CURRENT" != "$MIN_API" ]; then
     status "min isn't up to date. updating now..."
-    curl -s --header --header "Authorization: token $token" https://api.github.com/repos/minbrowser/min/releases/latest \
+    curl -s --header "Authorization: token $token" https://api.github.com/repos/minbrowser/min/releases/latest \
       | grep browser_download_url \
       | grep 'arm64.deb"' \
       | cut -d '"' -f 4 \
       | xargs -n 1 curl -L -o min_${MIN_API}_arm64.deb || error "Failed to download min:arm64!"
-    curl -s --header --header "Authorization: token $token" https://api.github.com/repos/minbrowser/min/releases/latest \
+    curl -s --header "Authorization: token $token" https://api.github.com/repos/minbrowser/min/releases/latest \
       | grep browser_download_url \
       | grep 'armhf.deb"' \
       | cut -d '"' -f 4 \
