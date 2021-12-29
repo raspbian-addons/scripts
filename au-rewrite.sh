@@ -459,7 +459,7 @@ fi
 green "min is up to date."
 
 status "Updating broot."
-BROOT_API=`curl -s --header "Authorization: token $token" https://api.github.com/repos/minbrowser/broot/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")' | tr -d 'v'`
+BROOT_API=`curl -s --header "Authorization: token $token" https://api.github.com/repos/Canop/broot/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")' | tr -d 'v'`
 BROOT_DATAFILE="$HOME/dlfiles-data/broot.txt"
 if [ ! -f "$BROOT_DATAFILE" ]; then
     status "$BROOT_DATAFILE does not exist."
