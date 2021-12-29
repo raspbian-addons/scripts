@@ -476,10 +476,10 @@ if [ "$BROOT_CURRENT" != "$BROOT_API" ]; then
     wget https://dystroy.org/broot/download/armv7-unknown-linux-gnueabihf/broot -O deb-base/usr/bin/broot || error "Failed to download broot binary"
     chmod +x deb-base/usr/bin/broot || error "Failed to make broot binary executable"
     echo "Package: broot
-Version: $new
+Version: ${BROOT_API}
 Section: net
 Priority: optional
-Architecture: ${BROOT_API}
+Architecture: armhf
 Depends: bash
 Maintainer: Ryan Fortner <ryankfortner@gmail.com>
 Description: A new way to see and navigate directory trees
