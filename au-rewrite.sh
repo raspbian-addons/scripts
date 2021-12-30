@@ -515,9 +515,9 @@ if [ "$CKB_CURRENT" != "$CKB_API" ]; then
     echo "ckb-next.list exists. continuing..."
     sudo apt update
     apt download ckb-next:armhf || error "Failed to download ckb-next:armhf"
-    apt download ckb-next-dbgsym:armhf || error "Failed to download ckb-next-dbgsym:armhf"
+    #apt download ckb-next-dbgsym:armhf || error "Failed to download ckb-next-dbgsym:armhf"
     apt download ckb-next:arm64 || error "Failed to download ckb-next:arm64"
-    apt download ckb-next-dbgsym:arm64 || error "Failed to download ckb-next-dbgsym:arm64"
+    #apt download ckb-next-dbgsym:arm64 || error "Failed to download ckb-next-dbgsym:arm64"
     mv ckb-next* $PKGDIR
     echo $CKB_API > $CKB_DATAFILE
     green "ckb-next downloaded successfully."
