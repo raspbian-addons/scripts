@@ -555,12 +555,12 @@ if [ "$ARDUINOCLI_CURRENT" != "$ARDUINOCLI_API" ]; then
     unzip arduino-cli-docs.zip && rm arduino-cli-docs.zip || error "failed"
     cd ../../../../../
     #mv LICENSE.txt deb/usr/share/doc/arduino-cli/ || error "Failed to move license"
-    echo "package ($new) stable; urgency=medium
+    echo "package (${ARDUINOCLI_API}) stable; urgency=medium
   Please check the source repo for the full changelog
   You can found the link at https://github.com/arduino/arduino-cli
 -- Ryan Fortner <ryankfortner@gmail.com>  $(date -R)" > deb/DEBIAN/changelog || error "Failed to create changelog!"
     echo "Package: arduino-cli
-Version: $LATEST
+Version: ${ARDUINOCLI_API}
 Section: utils
 Priority: optional
 Architecture: armhf
@@ -589,12 +589,12 @@ Bugs: https://github.com/arduino/arduino-cli/issues" > deb/DEBIAN/control || err
     unzip arduino-cli-docs.zip && rm arduino-cli-docs.zip || error "failed"
     cd ../../../../../
     #mv LICENSE.txt deb/usr/share/doc/arduino-cli/ || error "Failed to move license"
-    echo "package ($new) stable; urgency=medium
+    echo "package (${ARDUINOCLI_API}) stable; urgency=medium
   Please check the source repo for the full changelog
   You can found the link at https://github.com/arduino/arduino-cli
 -- Ryan Fortner <ryankfortner@gmail.com>  $(date -R)" > deb/DEBIAN/changelog || error "Failed to create changelog!"
     echo "Package: arduino-cli
-Version: $LATEST
+Version: ${ARDUINOCLI_API}
 Section: utils
 Priority: optional
 Architecture: arm64
