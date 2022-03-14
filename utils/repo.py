@@ -7,11 +7,11 @@ arch = platform.machine()
 
 def shellExec(command):
     return int(os.system(command) / 256) # if shell exit status is 1, os.system will return 256
+
 def exec(command, error):
     if shellExec(command) != 0:
         print(error)
         os._exit(1)
-
 
 def logo():
     print(" ____                 _     _                  _       _     _                  ")
@@ -29,19 +29,18 @@ def logo():
     print('\033[1mChoose a mirror:\033[0m\n')
     print(' 1. Main Server (Boston, USA)        2. SourceForge (Western US)')
     print(' 3. OSDN Storage (Main Server, USA)  4. OSDN (Main Server 2, USA)')
-    print(' 5. xTom (California, USA)           6. GigeNET (California, USA)')
-    print(' 7. Constant ( New Jersey, USA)      8. Purdue (Indiana, USA)')
-    print(' 9. Princeton (New Jersey, USA)     10. Tsinghua (Beijing, China)')
-    print('11. BFSU (Beijing, China)           12. ISCAS (Beijing, China)')
-    print('13. SJTU (Shanghai, China)          14. NJU (Nanjing, China)')
-    print('15. USTC (Anhui, China)             16. xTom (Hong Kong, China)')
-    print('17. NCHC (Taiwan, China)            18. IIJ (Osaka, Japan)')
-    print('19. JAIST (Nomi, Japan)             20. YMU (Yamagata, Japan)')
-    print('21. UME (Ume\u00e5, Sweden)              22. RWTH Aachen (NRW, Germany)')
-    print('23. Dotsrc (Aalborg, Denmark)       24. Onet (Krakow, Poland)')
-    print('25. Liquid Telecom (Nairobi, Kenya)\n')
+    print(' 5. GigeNET (California, USA)        6. Constant ( New Jersey, USA)')
+    print(' 7. Purdue (Indiana, USA)            8. Princeton (New Jersey, USA)')
+    print(' 9. Tsinghua (Beijing, China)       10. BFSU (Beijing, China)')
+    print('11. ISCAS (Beijing, China)          12. SJTU (Shanghai, China)')
+    print('13. NJU (Nanjing, China)            14. USTC (Anhui, China)')
+    print('15. NCHC (Taiwan, China)            16. IIJ (Osaka, Japan)')
+    print('17. JAIST (Nomi, Japan)             18. YMU (Yamagata, Japan)')
+    print('19. UME (Ume\u00e5, Sweden)         20. RWTH Aachen (NRW, Germany)')
+    print('21. Dotsrc (Aalborg, Denmark)       22. Onet (Krakow, Poland)')
+    print('23. Liquid Telecom (Nairobi, Kenya)\n')
     print('\033[1mOther options:\033[0m\n')
-    print('26. Remove                          27. Exit')
+    print('24. Remove                          25. Exit')
     print('')
     return copyright_title, copyright_url
 
@@ -97,110 +96,100 @@ if __name__ == "__main__":
 
         elif int(option) == 5:
             add_gpg_key()
-            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://mirrors.xtom.com/osdn/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
+            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://mirrors.gigenet.com/OSDN/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
             update()
 
         elif int(option) == 6:
             add_gpg_key()
-            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://mirrors.gigenet.com/OSDN/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
+            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://osdn.mirror.constant.com/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
             update()
 
         elif int(option) == 7:
             add_gpg_key()
-            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://osdn.mirror.constant.com/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
+            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://plug-mirror.rcac.purdue.edu/osdn/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
             update()
 
         elif int(option) == 8:
             add_gpg_key()
-            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://plug-mirror.rcac.purdue.edu/osdn/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
+            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://mirror.math.princeton.edu/pub/osdn/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
             update()
 
         elif int(option) == 9:
             add_gpg_key()
-            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://mirror.math.princeton.edu/pub/osdn/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
+            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://mirrors.tuna.tsinghua.edu.cn/osdn/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
             update()
 
         elif int(option) == 10:
             add_gpg_key()
-            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://mirrors.tuna.tsinghua.edu.cn/osdn/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
+            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://mirrors.bfsu.edu.cn/osdn/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
             update()
 
         elif int(option) == 11:
             add_gpg_key()
-            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://mirrors.bfsu.edu.cn/osdn/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
+            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://mirror.iscas.ac.cn/osdn/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
             update()
 
         elif int(option) == 12:
             add_gpg_key()
-            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://mirror.iscas.ac.cn/osdn/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
+            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://mirror.sjtu.edu.cn/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
             update()
 
         elif int(option) == 13:
             add_gpg_key()
-            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://mirror.sjtu.edu.cn/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
+            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://mirrors.nju.edu.cn/osdn/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
             update()
 
         elif int(option) == 14:
             add_gpg_key()
-            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://mirrors.nju.edu.cn/osdn/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
+            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://mirrors.ustc.edu.cn/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
             update()
 
         elif int(option) == 15:
             add_gpg_key()
-            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://mirrors.ustc.edu.cn/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
+            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://free.nchc.org.tw/osdn/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
             update()
 
         elif int(option) == 16:
             add_gpg_key()
-            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://mirror.xtom.com.hk/osdn/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
+            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://ftp.iij.ad.jp/pub/osdn.jp/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
             update()
 
         elif int(option) == 17:
             add_gpg_key()
-            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://free.nchc.org.tw/osdn/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
+            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://ftp.jaist.ac.jp/pub/sourceforge.jp/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
             update()
 
         elif int(option) == 18:
             add_gpg_key()
-            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://ftp.iij.ad.jp/pub/osdn.jp/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
+            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://ymu.dl.osdn.jp/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
             update()
 
         elif int(option) == 19:
             add_gpg_key()
-            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://ftp.jaist.ac.jp/pub/sourceforge.jp/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
+            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://ftp.acc.umu.se/mirror/osdn.net/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
             update()
 
         elif int(option) == 20:
             add_gpg_key()
-            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://ymu.dl.osdn.jp/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
+            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] http://ftp.halifax.rwth-aachen.de/osdn/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
             update()
 
         elif int(option) == 21:
             add_gpg_key()
-            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://ftp.acc.umu.se/mirror/osdn.net/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
+            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] http://mirrors.dotsrc.org/osdn/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
             update()
 
         elif int(option) == 22:
             add_gpg_key()
-            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] http://ftp.halifax.rwth-aachen.de/osdn/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
+            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] http://ftp.onet.pl/pub/mirrors/sourceforge.jp/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
             update()
 
         elif int(option) == 23:
             add_gpg_key()
-            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] http://mirrors.dotsrc.org/osdn/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
-            update()
-
-        elif int(option) == 24:
-            add_gpg_key()
-            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] http://ftp.onet.pl/pub/mirrors/sourceforge.jp/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
-            update()
-
-        elif int(option) == 25:
-            add_gpg_key()
             exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] http://mirror.liquidtelecom.com/osdn/storage/g/r/ra/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
             update()
 
-        elif int(option) == 26:
+        elif int(option) == 24:
             print('Removing package list...')
             exec('sudo rm /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to remove rpirepo.list!")
             print('Removing GPG key...')
@@ -208,7 +197,7 @@ if __name__ == "__main__":
             print('Updating APT lists...')
             exec('sudo apt update || exit 1', "Failed to add update apt lists!")
 
-        elif int(option) == 27:
+        elif int(option) == 25:
             os._exit(0)
         else:
             print('Illegal input option. Please re-enter.')
