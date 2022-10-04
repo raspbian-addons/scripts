@@ -38,9 +38,10 @@ def logo():
     print('17. JAIST (Nomi, Japan)             18. YMU (Yamagata, Japan)')
     print('19. UME (Ume\u00e5, Sweden)              20. RWTH Aachen (NRW, Germany)')
     print('21. Dotsrc (Aalborg, Denmark)       22. Onet (Krakow, Poland)')
-    print('23. Liquid Telecom (Nairobi, Kenya)\n')
+    print('23. Liquid Telecom (Nairobi, Kenya)')
+    print('24. Storj (Asia Pacific)\n')
     print('\033[1mOther options:\033[0m\n')
-    print('24. Remove                          25. Exit')
+    print('25. Remove                          26. Exit')
     print('')
     return copyright_title, copyright_url
 
@@ -190,6 +191,11 @@ if __name__ == "__main__":
             update()
 
         elif int(option) == 24:
+            add_gpg_key()
+            exec('echo "deb [signed-by=/usr/share/keyrings/raspbian-addons-archive-keyring.gpg] https://link.storjshare.io/raw/jw7axrw4duvbd325trf5l46a5muq/raspbian-addons/debian precise main" | sudo tee /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to create package list!")
+            update()
+            
+        elif int(option) == 25:
             print('Removing package list...')
             exec('sudo rm /etc/apt/sources.list.d/rpirepo.list || exit 1', "Failed to remove rpirepo.list!")
             print('Removing GPG key...')
@@ -197,7 +203,7 @@ if __name__ == "__main__":
             print('Updating APT lists...')
             exec('sudo apt update || exit 1', "Failed to add update apt lists!")
 
-        elif int(option) == 25:
+        elif int(option) == 26:
             os._exit(0)
         else:
             print('Illegal input option. Please re-enter.')
